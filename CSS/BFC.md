@@ -11,14 +11,8 @@ BFC，全称为“Block Formatting Context”（块级格式化上下文），�
 8. `overflow`属性不为`visible`的块元素
 9. `display: flow-root`
 
-![](assets/BFC/index.html)
-<iframe  height=850 width=90% src="assets/BFC/index.html"  frameborder=0 allowfullscreen> </iframe>
+![点击查看html](assets/BFC/index.html)
 
-
-作者：程序员子枫  
-链接：https://juejin.cn/post/6844904001557774343  
-来源：稀土掘金  
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ## BFC特性
 ### **包含内部浮动**：计算BFC的高度时，浮动子元素的高度也会被计算在内
 ![](assets/BFC/image-20240624173712241.png)
