@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        main {
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            padding-bottom: 100px;
+        }
+
+        h1 {
+            margin-top: 120px;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            background-color: rgb(255, 205, 205);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .box.no-height {
+            height: auto;
+        }
+
+        .bfc {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bfc::before {
+            content: 'BFC盒子';
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .block {
+            display: block;
+            height: 100px;
+            width: 100px;
+        }
+
+        .size-50 {
+            width: 50px;
+            height: 50px;
+        }
+
+        .size-150 {
+            width: 150px;
+            height: 150px;
+        }
+
+        .bg-blue {
+            background-color: rgb(70, 70, 255);
+        }
+
+        .bg-red {
+            background-color: rgb(255, 78, 78);
+        }
+
+        .bg-yellow {
+            background-color: rgb(255, 255, 85);
+        }
+
+        .bg-orange {
+            background-color: orange;
+        }
+
+        .bg-cyan {
+            background-color: cyan;
+        }
+
+        .bg-aqua {
+            background-color: aqua;
+        }
+
+        .m-5 {
+            margin: 5px;
+        }
+
+        .m-10 {
+            margin: 10px;
+        }
+
+        .m-20 {
+            margin: 20px;
+        }
+
+        .float {
+            float: left;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .flex .container {
+            flex-grow: 1;
+        }
+
+        .flex .container p {
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .flex p {
+            text-align: center;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>1. BFC内部的块级盒子会在垂直方向，从上往下一个接一个地放置</h1>
+        <div class="flex">
+            <div class="bfc box">
+                <div class="block bg-red">block</div>
+                <div class="block bg-blue">block</div>
+            </div>
+        </div>
+        <h1>2. 同一个BFC中的两个相邻块级盒子的上下margin会发生重叠，取最大的margin</h1>
+        <div class="flex">
+            <div class="bfc box">
+                <div class="block bg-red m-10">block</div>
+                <div class="block bg-blue m-20">block</div>
+            </div>
+        </div>
+        <h1>3. BFC的区域不会与浮动盒子重叠</h1>
+        <div class="flex">
+            <div class="container">
+                <div class="box">
+                    <div class="float block bg-red size-50"> float </div>
+                    <div class="block bg-blue"> 普通盒子 </div>
+                </div>
+                <p>没有触发BFC，浮动盒子会浮动到左侧，和普通内容重叠</p>
+            </div>
+            <div class="container">
+                <div class="box">
+                    <div class="float block bg-red size-50"> float </div>
+                    <div class="block bg-blue bfc"> </div>
+                </div>
+                <p>触发BFC,不会发生重叠</p>
+            </div>
+        </div>
+        <h1>4. BFC是一个独立的容器，容器内的子元素不会影响到外面的元素，反之亦然</h1>
+        <h1>5. 计算BFC的高度时，浮动子元素也会被计算在内</h1>
+        <div class="flex">
+            <div class="container">
+                <div class="overflow-hidden">
+                    <div class="box no-height">
+                        <div class="block float bg-red"> float </div>
+                    </div>
+                </div>
+                <p>float在普通盒子中不占据盒子的高度，盒子高度为0</p>
+            </div>
+            <div class="container">
+                <div class="box no-height bfc">
+                    <div class="block float bg-red"> float </div>
+                </div>
+                <p>float在BFC盒子中占据高度，这边高度等于float盒子高度</p>
+            </div>
+        </div>
+        <h1>排除外部浮动</h1>
+        <div class="box bg-yellow">
+        </div>
+    </main>
+</body>
+
+</html>
