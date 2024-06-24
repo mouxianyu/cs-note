@@ -21,7 +21,9 @@ BFC，全称为“Block Formatting Context”（块级格式化上下文），�
 
 
 ### 3. BFC的区域不会与浮动盒子重叠
-![[CSS/assets/BFC/image-20240624164857851.png]]
+![](CSS/assets/BFC/image-20240624165056767.png)
+
+
 
 
 ### 4. BFC是一个独立的容器，容器内的子元素不会影响到外面的元素，反之亦然。
