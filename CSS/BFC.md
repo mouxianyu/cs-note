@@ -31,7 +31,7 @@ BFC，全称为“Block Formatting Context”（块级格式化上下文），�
 
 ### 4. BFC内部的块级盒子会在垂直方向，从上往下一个接一个地放置
 
-### 5. BFC内部的块级盒子会在垂直方向，从上往下一个接一个地放置
+### 5. 内部元素的布局不会影响外部元素，也不会受到外部元素的影响
 
 ## BFC的应用场景
 ### 清除浮动（利用特性：包含内部浮动）
@@ -75,3 +75,4 @@ BFC，全称为“Block Formatting Context”（块级格式化上下文），�
 ---
 ## 参考
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_display/Block_formatting_context
+https://chatgpt.com/
