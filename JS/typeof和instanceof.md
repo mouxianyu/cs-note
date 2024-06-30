@@ -64,7 +64,7 @@ console.log(myInstance instanceof MyClass); // 返回 true
 
 ### 手写实现instanceof
 ```js
-// 自己实现instanceof
+// 注意：Node打印的信息不完整，需要放在浏览器中查看到更完整的信息
 const myInstanceof = (obj, constructor) => {
     // Object.prototype.__proto__是null，也就是原型链最根部了
     if (obj === null) return false
@@ -82,21 +82,35 @@ const myInstanceof = (obj, constructor) => {
 
 // true
 console.log(myInstanceof(function () {}, Function))
-
 // true
 console.log(function () {} instanceof Function)
-
 // true
 console.log(myInstanceof([], Array))
-
 // true
 console.log(myInstanceof(() => 0, Function))
-
 // true
 console.log(myInstanceof(() => 0, Function))
-
 // false
 console.log(myInstanceof(() => 0, Number))
+
+class Parent {}
+class Child extends Parent {}
+
+class Name {}
+class FirstName extends Name {}
+
+const myName = new Name()
+const myChild = new Child()
+
+// true
+console.log(myInstanceof(myName, Name))
+// true
+console.log(myInstanceof(myName, FirstName))
+
+// true
+console.log(myInstanceof(myChild, Child))
+// true
+console.log(myInstanceof(myChild, Parent))
 
 ```
 
@@ -108,3 +122,37 @@ console.log(myInstanceof(() => 0, Number))
 5. **原型链的影响**：`instanceof` 检查的是对象的原型链，如果构造函数的原型被修改或替换，可能会影响 `instanceof` 的结果。
 
 ## 实现判断所有类型的函数
+
+```js
+// 自己版本
+const getType = obj => {
+    if (obj === undefined || obj === null) return typeof obj
+    if (Number.isNaN(obj)) return 'nan'
+    return Object.getPrototypeOf(obj).constructor.name.toLowerCase()
+}
+
+// 网络版本
+const getType2 = obj => {
+    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
+}
+
+console.log(getType(false))
+console.log(getType(Symbol('tt')))
+console.log(getType(1n))
+console.log(getType(NaN))
+console.log(getType(null))
+console.log(getType(undefined))
+console.log(getType(11))
+console.log(getType(/111/))
+console.log(getType(new Date()))
+console.log(getType(new Set()))
+console.log(getType([]))
+console.log(getType({}))
+console.log(getType(() => {}))
+
+class Parent {}
+class Child extends Parent {}
+console.log(getType(new Child()))
+console.log(getType(new Parent()))
+
+```
