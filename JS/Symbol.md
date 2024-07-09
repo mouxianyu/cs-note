@@ -1,6 +1,9 @@
-Symbol事ES6开始有的基本数据类型，表示独一无二的值
+Symbol是ES6开始有的基本数据类型，表示独一无二的值
+
 语法：`Symbol([description])`
+
 Symbol，即使 `description` 相同，但是仍然时唯一的、不同的值
+
 ```js
 // 创建两个 Symbol
 const sym1 = Symbol('description');
@@ -31,9 +34,11 @@ console.log(obj[sym2]); // 'value2'
 ### Symbol.for(key)
 
 **根据key找symbol**
+
 **`Symbol.for(key)`** 方法会根据给定的键 `key`，来从运行时的 symbol 注册表中找到对应的 symbol，如果找到了，则返回它，否则，新建一个与该键关联的 symbol，并放入全局 symbol 注册表中。
 
 ### Symbol.keyFor(sym)
 
 **根据symbol找key**
+
 **`Symbol.keyFor(sym)`** 方法用来获取全局 symbol 注册表中与某个 symbol 关联的键。

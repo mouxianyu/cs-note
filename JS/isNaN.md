@@ -9,8 +9,11 @@ NaN代表不是一个数字的特殊值，与Number.NaN相同
 - 将无效值表示为数字的其他情况（例如，无效的 [Date](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date) `new Date("blabla").getTime()`、`"".charCodeAt(1)`）
 
 ## isNaN() 和 Number.isNaN()
+
 **全局的isNaN()** 会自动封装参数为Number，所以如果参数不是Number类型都会转化成NaN，所以isNaN都会返回true
+
 **Number.isNaN()** 只会判断某个值是否等于NaN，不会做自动封装
+
 ```js
 isNaN("hello world"); // true
 Number.isNaN("hello world"); // false
