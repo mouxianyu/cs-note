@@ -21,9 +21,10 @@ ESModule是**官方标准**，CommonJS是**社区规范**，不是官方标准
 	} else {
 	  const moduleB = require('./moduleB');
 	}
-```
-- 导入是整个导入，编译的时候即使不使用也会导入
+	```
 
+- 导入是整个导入，编译的时候即使不使用也会导入
+- 
 ## ES Module
 ESModule 是现代 JavaScript 的标准，用于现代框架Vue、React等，一些浏览器也支持`<script type="module">`，Node.js 12 及以上支持，但是需要使用.mjs扩展名
 - 导入：`import` 需要放在最顶部声明，动态导入使用其他语法。可以部分导入
@@ -47,5 +48,5 @@ ESModule 是现代 JavaScript 的标准，用于现代框架Vue、React等，�
 	    // 使用 moduleB
 	  });
 	}
-```
+	```
 - 可以部分导入，编译的时候可以去除不使用的部分
