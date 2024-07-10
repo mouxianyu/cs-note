@@ -12,7 +12,7 @@ const p = new Proxy(target, handler)
 
 [`handler`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy#handler_2)
 
-一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 `p` 的行为。
+一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理的行为。
 
 ## 示例
 
@@ -164,5 +164,7 @@ console.log(i2.getAttribute("aria-selected")); // 'true'
 -  **浏览器兼容性**：`Proxy`是ES6中新增的特性，存在浏览器兼容性问题，而且无法用`polyfill`磨平。而`Object.defineProperty`的兼容性更好，支持IE9及以上浏览器。
 
 > babel无法转化Proxy到ES5，现在没有完全兼容的Polyfill，即使用了Polyfill也不能保证在所有地方完全响应。
+> 
 > 因此Vue3使用Proxy，所以无法完全兼容旧浏览器
+
 
