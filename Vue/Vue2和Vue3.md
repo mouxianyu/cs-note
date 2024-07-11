@@ -15,7 +15,7 @@ Vue3引入了组合式API，提供了一种新的方式来组织逻辑。组合�
 ## 响应式系统改进（Proxy）
 Vue 3 使用了 **Proxy** 来实现响应式系统，替代了 Vue 2 中的 `Object.defineProperty`。这使得 Vue 3 能够更高效地追踪依赖和更新 DOM，同时解决了 Vue 2 中一些无法检测到的响应式问题。
 
-[Proxy](/js/Proxy.md)
+[Proxy](/JS/Proxy.md)
 
 ## 生命周期钩子
 Vue3 更新了组件的生命周期钩子
@@ -23,7 +23,7 @@ Vue3 更新了组件的生命周期钩子
 - `beforeCreate` 和 `created` 被 `setup` 函数替代
 - 新增了 `onErrorCaptured`、`onActivated`、`onDeactivated` 、 `onServerPrefetch` 
 
-[生命周期](Vue/生命周期.md)
+[生命周期](/Vue/生命周期.md)
 
 
 ## 性能提升
