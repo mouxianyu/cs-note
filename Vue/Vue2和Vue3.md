@@ -9,12 +9,13 @@ Vue3引入了组合式API，提供了一种新的方式来组织逻辑。组合�
 - [依赖注入](https://cn.vuejs.org/api/composition-api-dependency-injection.html)：例如 `provide()` 和 `inject()`，使我们可以在使用响应式 API 时，利用 Vue 的依赖注入系统。
 
 **声明式API（Vue2）**：强调描述要达到的目标或状态，而不是具体的实现过程。
+
 **响应式API（Vue3）**：基于数据的变化自动进行响应和处理。
 
 ## 响应式系统改进（Proxy）
 Vue 3 使用了 **Proxy** 来实现响应式系统，替代了 Vue 2 中的 `Object.defineProperty`。这使得 Vue 3 能够更高效地追踪依赖和更新 DOM，同时解决了 Vue 2 中一些无法检测到的响应式问题。
 
-[Proxy](js/Proxy.md)
+[Proxy](/js/Proxy.md)
 
 ## 生命周期钩子
 Vue3 更新了组件的生命周期钩子
