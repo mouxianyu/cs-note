@@ -45,7 +45,7 @@ Vue 3 的代码库使用 TypeScript 重写，提供了更好的类型推断和�
 - prop和默认事件名称变更
 	- prop：`value` -> `modelValue`
 	- 事件：`input` -> `update:modelValue`
-- 移除 `.sync` 修饰符，用`v-model` 或 自定义事件（prop赋值+emit事件触发变更）实现类似功能。
+- 移除 `.sync` 修饰符，用`v-model` 或 自定义事件（prop动态绑定+emit事件触发变更）实现类似功能。
 - 可以在一个组件上使用多个 `v-model` ，可以用`defineModel` 减少代码
 - 可以自定义 `v-model`  修饰符，如 `v-model.capitalize` 实现自动首字母大写（非modelValue的prop目前不可以自定义）
 
