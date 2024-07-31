@@ -1,36 +1,43 @@
+# typeof 和 instanceof
+
 ## typeof
+
 用于检查原始数据的值，返回一个值的数据类型
+
 ```javascript
-typeof "Hello";    // 返回 "string"
-typeof 42;         // 返回 "number"
-typeof true;       // 返回 "boolean"
-typeof undefined;  // 返回 "undefined"
-typeof Symbol();  // 返回 "symbol"
-typeof 123456789012345678901234567890n; // 返回 "bigint"
-typeof function() {}; // 返回 "function"
-typeof [];         // 返回 "object"（数组是对象的一种）
-typeof null;       // 返回 "object"（这是一个特例）
+typeof 'Hello' // 返回 "string"
+typeof 42 // 返回 "number"
+typeof true // 返回 "boolean"
+typeof undefined // 返回 "undefined"
+typeof Symbol() // 返回 "symbol"
+typeof 123456789012345678901234567890n // 返回 "bigint"
+typeof function () {} // 返回 "function"
+typeof [] // 返回 "object"（数组是对象的一种）
+typeof null // 返回 "object"（这是一个特例）
 ```
 
 ### 实现原理
+
 JavaScript 在底层存储变量时，会在变量的机器码低位 1-3 位存储它的类型信息：
-- `000`: 对象
-- `010`: 浮点数
-- `100`: 字符串
-- `110`: 布尔值
-- `1`: 整数
-其中，`null` 和 `undefined` 信息存储比较特殊：
-- `null`，所有机器码均为 0
-- `undefined`，用 `-2^32` 整数来表示
 
->`typeof` 在 判断 `null` 的时候，由于 `null` 的所有机器码均为 0，因此直接被判断为 `object`。
->但是，如果在使用 `instanceof` 时，`null` 又不被认为是 `object`
->这是javascript的历史遗留Bug
+-   `000`: 对象
+-   `010`: 浮点数
+-   `100`: 字符串
+-   `110`: 布尔值
+-   `1`: 整数
+    其中，`null`  和  `undefined`  信息存储比较特殊：
+-   `null`，所有机器码均为 0
+-   `undefined`，用  `-2^32`  整数来表示
 
-### 手写实现typeof
+> `typeof`  在 判断  `null`  的时候，由于  `null`  的所有机器码均为 0，因此直接被判断为  `object`。
+> 但是，如果在使用  `instanceof`  时，`null`  又不被认为是  `object`
+> 这是 javascript 的历史遗留 Bug
+
+### 手写实现 typeof
+
 ```js
-function myTypeof(obj){
-  return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+function myTypeof(obj) {
+    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
 }
 ```
 
@@ -44,25 +51,31 @@ function myTypeof(obj){
 
 **简单来说就是 `Number(11)` ，调用了 `Object.prototype` 的 `toString`，而不是调用`Number.prototype的toString`，`Number.prototype.toString`有对`Object.prototype.toString`进行重写。**
 
-但实际上，这并不是typeof，上面的功能，超出了typeof的能力，例如：
+但实际上，这并不是 typeof，上面的功能，超出了 typeof 的能力，例如：
+
 ```js
 typeof [] === 'array' // false
 myTypeof([]) === 'array' // true
 ```
-可以优化用map匹配
+
+可以优化用 map 匹配
+
 ## instanceof
+
 检查引用类型，确定一个对象是否是某个类的实例，或者是否构造于某个构造函数或某个对象的原型链上
+
 ```js
-const arr = [];
-console.log(arr instanceof Array);  // 返回 true
-console.log(arr instanceof Object);  // 返回 true，因为Array是Object的子类
+const arr = []
+console.log(arr instanceof Array) // 返回 true
+console.log(arr instanceof Object) // 返回 true，因为Array是Object的子类
 
 class MyClass {}
-const myInstance = new MyClass();
-console.log(myInstance instanceof MyClass); // 返回 true
+const myInstance = new MyClass()
+console.log(myInstance instanceof MyClass) // 返回 true
 ```
 
-### 手写实现instanceof
+### 手写实现 instanceof
+
 ```js
 // 注意：Node打印的信息不完整，需要放在浏览器中查看到更完整的信息
 const myInstanceof = (obj, constructor) => {
@@ -111,10 +124,10 @@ console.log(myInstanceof(myName, FirstName))
 console.log(myInstanceof(myChild, Child))
 // true
 console.log(myInstanceof(myChild, Parent))
-
 ```
 
 ## 区别
+
 1. **类型检查的范围**：`typeof` 可以检查原始类型和函数，但不能区分对象的不同构造函数。`instanceof` 专门用于检查对象是否是某个构造函数的实例。
 2. **返回值类型**：`typeof` 返回一个字符串，表示类型名称；`instanceof` 返回一个布尔值，表示是否是实例。
 3. **对于 `null` 的检查**：`typeof null` 返回 `"object"`，这是一个语言特有的异常情况。而 `instanceof` 操作符不能用于 `null`，因为 `null` 不是一个对象。
@@ -154,5 +167,4 @@ class Parent {}
 class Child extends Parent {}
 console.log(getType(new Child()))
 console.log(getType(new Parent()))
-
 ```

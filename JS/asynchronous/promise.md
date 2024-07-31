@@ -1,4 +1,7 @@
-## 手写Promise
+# Promise
+
+## 手写 Promise
+
 ```js
 const STATUS = {
     PENDING: 'pending',
@@ -134,14 +137,16 @@ myPromise
     .catch(err => {
         console.error('catch', err.toString())
     })
-
 ```
 
-## Promise函数
-### Promise.all
-Promise.all如果其中一个被拒绝就会立即停止
+## Promise 函数
 
-#### 手写Promise.all
+### Promise.all
+
+Promise.all 如果其中一个被拒绝就会立即停止
+
+#### 手写 Promise.all
+
 ```js
 const promiseAll = iterable => {
     return new Promise((resolve, reject) => {
@@ -203,15 +208,16 @@ promiseAll(promises)
     .finally(() => {
         console.warn('finally time:' + (new Date().getTime() - start))
     })
-
 ```
 
-
 ### Promise.allSettled
-Promise.allSettled会返回所有的结果和状态，不管是否被拒绝
+
+Promise.allSettled 会返回所有的结果和状态，不管是否被拒绝
 
 ### Promise.race
-Promise.race只返回最快执行完成的Promise的结果
+
+Promise.race 只返回最快执行完成的 Promise 的结果
 
 ### Promise.resolve
-`Promise.resolve` 是 JavaScript 中的一个静态方法，它用于将一个值、另一个Promise对象或者一个Thenable（即具有`then`方法的对象）包装成一个Promise对象
+
+`Promise.resolve` 是 JavaScript 中的一个静态方法，它用于将一个值、另一个 Promise 对象或者一个 Thenable（即具有`then`方法的对象）包装成一个 Promise 对象
