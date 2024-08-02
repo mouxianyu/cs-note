@@ -1,26 +1,33 @@
+# 双向绑定
+
 ## MVVM
-Vue的双向绑定由三个部分组成，也就是MVVM
-- 模型（Model）
-- 视图（View）
-- 视图模型（ViewModel）
-双向绑定就在ViewModel，当`Model`数据被更新了，`View`也跟着更新；当用户操作界面，如填写表单之类的，`View`发生更新，`Model`也跟着更新，这就是双向绑定。
 
-ViewModel有两个重要组成部分
-- 监听器（Observer）：对所有数据的属性进行监听
-- 解析器（Compiler）：对每个元素节点的指令进行扫描和解析，根据指令模版替换数据，以及绑定相应的更新函数
+Vue 的双向绑定由三个部分组成，也就是 MVVM
+
+-   模型（Model）
+-   视图（View）
+-   视图模型（ViewModel）
+    双向绑定就在 ViewModel，当`Model`数据被更新了，`View`也跟着更新；当用户操作界面，如填写表单之类的，`View`发生更新，`Model`也跟着更新，这就是双向绑定。
+
+ViewModel 有两个重要组成部分
+
+-   监听器（Observer）：对所有数据的属性进行监听
+-   解析器（Compiler）：对每个元素节点的指令进行扫描和解析，根据指令模版替换数据，以及绑定相应的更新函数
+
 ## 双向绑定原理
-Vue中的双向绑定是通过数据劫持（Object.defineProperty）和发布-订阅模式实现的。
-1. **数据劫持（Object.defineProperty）：** Vue会对数据对象进行递归遍历，通过 Object.defineProperty() 方法为每个属性添加 getter 和 setter。当访问或修改属性时，会触发对应的 getter 和 setter 方法，从而实现对属性的拦截和监控。
-2. **发布-订阅模式：** Vue利用观察者模式实现了一个简单的发布-订阅系统。当数据发生变化时，会触发对应属性的 setter 方法，setter 方法会**通知订阅该属性的所有观察者对象进行更新**，从而实现视图的自动更新。
 
+Vue 中的双向绑定是通过数据劫持（Object.defineProperty）和发布-订阅模式实现的。
+
+1. **数据劫持（Object.defineProperty）：** Vue 会对数据对象进行递归遍历，通过 Object.defineProperty() 方法为每个属性添加 getter 和 setter。当访问或修改属性时，会触发对应的 getter 和 setter 方法，从而实现对属性的拦截和监控。
+2. **发布-订阅模式：** Vue 利用观察者模式实现了一个简单的发布-订阅系统。当数据发生变化时，会触发对应属性的 setter 方法，setter 方法会**通知订阅该属性的所有观察者对象进行更新**，从而实现视图的自动更新。
 
 简单实现如下：
+
 ```html
-  <div id="app">
-    <input id="input"
-           type="text">
+<div id="app">
+    <input id="input" type="text" />
     <p id="text"></p>
-  </div>
+</div>
 ```
 
 ```javascript
@@ -122,10 +129,10 @@ el.addEventListener('input', function (event) {
 setTimeout(() => {
     twoWayBind.data.message = '你好世界'
 }, 2000)
-
 ```
 
+---
 
---- 
 ## 参考
+
 https://juejin.cn/post/6844903479044112391#heading-6

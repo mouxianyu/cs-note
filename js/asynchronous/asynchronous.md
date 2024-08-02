@@ -92,7 +92,7 @@ console.log(num) // 6
 
 ## 4. Async/Await
 
-![](js/asynchronous/async-await.md)
+![Async Await](js/asynchronous/async-await.md)
 
 ## 5. 观察者模式（Observer pattern）
 
