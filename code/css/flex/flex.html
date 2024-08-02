@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            border: 0;
+            outline: none;
+            margin: 0;
+        }
+
+        main {
+            margin: 50px auto;
+            width: 1200px;
+        }
+
+        h2 {
+            margin: 20px 0;
+        }
+
+        pre {
+            max-width: 100%;
+            overflow: auto;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            margin: 0;
+        }
+
+        .bg-red {
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        .bg-blue {
+            background-color: rgba(0, 0, 255, 0.1);
+        }
+
+        .bg-yellow {
+            background-color: rgba(255, 255, 0, 0.1);
+        }
+
+        .container {
+            display: flex;
+            width: 800px;
+            padding: 10px;
+            outline: 1px solid #000;
+            margin-top: 20px;
+        }
+
+        .item {
+            outline: 1px solid #000;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .flex-grow .item:nth-of-type(1) {
+            flex-basis: 200px;
+            flex-grow: 1;
+        }
+
+        .flex-grow .item:nth-of-type(2) {
+            flex-basis: 300px;
+            flex-grow: 2;
+            order: 1;
+        }
+
+        .flex-grow .item:nth-of-type(3) {
+            flex-basis: auto;
+            flex-grow: 3;
+        }
+
+        .info {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            outline: none;
+            width: 0;
+            overflow: visible;
+        }
+
+        .intro li {
+            margin-left: 1.2em;
+        }
+
+        .info li {
+            list-style: none;
+            min-width: 200px;
+            font-family: monospace;
+        }
+
+        .flex-shrink .item:nth-of-type(1) {
+            flex-basis: 400px;
+            flex-shrink: 3;
+        }
+
+        .flex-shrink .item:nth-of-type(2) {
+            flex-basis: 300px;
+            flex-shrink: 2;
+        }
+
+        .flex-shrink .item:nth-of-type(3) {
+            flex-basis: 300px;
+            flex-shrink: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h2>flex-grow计算</h2>
+        <ul class="intro">
+            <li>容器宽度：800px</li>
+            <li>总flex-grow：6</li>
+            <li>总flex-basic：500px （第三个元素flex-basic为auto，也没有设置宽度，内容尺寸也为0，所以是0）</li>
+            <li>剩余空间：300px</li>
+        </ul>
+        <div class="container flex-grow">
+            <div class="item bg-red">
+                <ul class="info">
+                    <li>flex-basis: 200px;</li>
+                    <li>flex-grow: 1;</li>
+                    <li>&nbsp;</li>
+                    <li>增长: (1/6)*300=50px</li>
+                    <li>总: 200+50=250px</li>
+                </ul>
+            </div>
+            <div class="item bg-blue">
+                <ul class="info">
+                    <li>flex-basis: 300px;</li>
+                    <li>flex-grow: 2;</li>
+                    <li>&nbsp;</li>
+                    <li>增长: (2/6)*300=100px</li>
+                    <li>总: 300+100=400px</li>
+                </ul>
+            </div>
+            <div class="item bg-yellow">
+                <ul class="info">
+                    <li>flex-basis: auto;</li>
+                    <li>flex-grow: 3;</li>
+                    <li>&nbsp;</li>
+                    <li>增长: (3/6)*300=150px</li>
+                    <li>总: 0+150=150px</li>
+                </ul>
+            </div>
+        </div>
+        <h2 style="margin-top: 40px;">flex-shrink计算</h2>
+        <ul class="intro">
+            <li>容器宽度：800px</li>
+            <li>总flex-shrink：6</li>
+            <li>总flex-basic：1000px</li>
+            <li>超出空间：200px</li>
+            <li>总 flex-shrink * flex-basic ：400*3+300*2+300*1=2100</li>
+        </ul>
+        <div class="container flex-shrink">
+            <div class="item bg-red">
+                <ul class="info">
+                    <li>flex-basis: 400px;</li>
+                    <li>flex-shrink: 3;</li>
+                    <li>&nbsp;</li>
+                    <li>收缩: (3*400/2100)*200=114.29px</li>
+                    <li>总: 400-114.29=285.71px</li>
+                </ul>
+            </div>
+            <div class="item bg-blue">
+                <ul class="info">
+                    <li>flex-basis: 300px;</li>
+                    <li>flex-shrink: 2;</li>
+                    <li>&nbsp;</li>
+                    <li>收缩: (300*2/2100)*200=57.12px</li>
+                    <li>总: 300-28.57=242.88px</li>
+                </ul>
+            </div>
+            <div class="item bg-yellow">
+                <ul class="info">
+                    <li>flex-basis: 300px;</li>
+                    <li>flex-shrink: 1;</li>
+                    <li>&nbsp;</li>
+                    <li>收缩: (300*1/2100)*200=28.57px</li>
+                    <li>总: 300-28.57=271.43px</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

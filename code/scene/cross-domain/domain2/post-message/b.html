@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>接收方</h1>
+    <script>
+        window.addEventListener('message', function (event) {
+            console.log('receive from: ', event.origin)
+            console.log('receive data: ', event.data)
+
+            setTimeout(() => {
+                // 回复消息
+                window.parent.postMessage('Hello back', event.origin)
+            }, 1000);
+
+        })
+    </script>
+</body>
+
+</html>

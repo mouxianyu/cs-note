@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var proxy = function (url, callback) {
+            var state = 0;
+            var iframe = document.createElement('iframe');
+
+            iframe.src = url;
+
+            iframe.onload = function () {
+                if (state === 1) {
+                    //  iframe 已经加载了同域代理页面，并且之前已经将跨域页面（B域）的数据存储在了 window.name 中。
+                    callback(iframe.contentWindow.name);
+                    destoryFrame();
+                } else if (state === 0) {
+                    try {
+                        // 此时获取会跨域
+                        console.log('重定向前的name', iframe.contentWindow.name)
+                    } catch (error) {
+                        console.error(error)
+                    }
+                    // 重定向后会保留B页面的window.name，再换成同域的代理页面就可以获取window.name
+                    iframe.contentWindow.location = 'http://localhost:5001/window.name/proxy.html';
+                    state = 1;
+                }
+            };
+
+            document.body.appendChild(iframe);
+
+            function destoryFrame() {
+                iframe.contentWindow.document.write('');
+                iframe.contentWindow.close();
+                document.body.removeChild(iframe);
+            }
+        };
+
+        setTimeout(() => {
+            // 请求跨域b页面数据
+            proxy('http://localhost:5002/window.name/b.html', function (data) {
+                console.log('获取b页面window.name', data)
+            });
+        }, 2000);
+
+    </script>
+</body>
+
+</html>

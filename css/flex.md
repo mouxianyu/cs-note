@@ -61,6 +61,8 @@ flex 容器内的元素沿着两个轴来布局：
 
 ## 动态尺寸
 
+[flex-grow、flex-shrink 计算示例.html](/code/css/flex/flex.html)
+
 ### flex-grow 扩张
 
 -   **作用：** 定义元素扩张能力，当容器有额外空间的时候，元素可以增长的比例

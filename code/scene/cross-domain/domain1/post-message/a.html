@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>发送方</h1>
+    <iframe id="my-iframe"
+            src="http://localhost:5002/postmessage/b.html"
+            frameborder="0"></iframe>
+    <script>
+        // 用于在不同源的窗口（window）之间发送消息
+        // 使用iframe
+        const myIframe = document.getElementById('my-iframe')
+        const otherWindow = myIframe.contentWindow
+        // 使用新窗口
+        // const otherWindow = window.open('http://localhost:5002/postmessage/b.html', '_blank');
+        setTimeout(() => {
+            // 发送消息
+            otherWindow.postMessage('Hello from Domain1', 'http://localhost:5002')
+        }, 2000);
+
+        window.addEventListener('message', function (event) {
+            // 接收回复
+            console.log('receive from: ', event.origin)
+            console.log('receive data: ', event.data)
+        })
+    </script>
+</body>
+
+</html>

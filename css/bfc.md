@@ -21,7 +21,7 @@ BFC，全称为“Block Formatting Context”（块级格式化上下文），�
 
 ## BFC 特性
 
-![BFC特性示例.html](/css/assets/bfc/bfc.html)
+![BFC特性示例.html](/code/css/bfc/bfc.html)
 
 ### 1. **包含内部浮动**：计算 BFC 的高度时，浮动子元素也会被计算在内
 

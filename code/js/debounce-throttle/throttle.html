@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        main {
+            height: 300vh;
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <main></main>
+</body>
+<script>
+    // 自己写
+    function throttle(func, limit) {
+        let timer = null
+        return function (...args) {
+            const that = this
+            if (!timer) {
+                timer = setTimeout(() => {
+                    func.apply(that, args)
+                    timer = null
+                }, limit);
+            }
+        }
+    }
+
+    window.addEventListener(
+        'scroll',
+        throttle(function () {
+            console.log('滚动事件')
+        }, 1000)
+    )
+    window.addEventListener('scroll', function () {
+        // scroll 事件会立即出发一次
+        console.log('scroll')
+    })
+</script>
+
+</html>

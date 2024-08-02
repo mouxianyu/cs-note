@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 自己写的
+        function debounce(func, wait) {
+            let timeout
+            return function (...args) {
+                // 这里还是要把this，和args拿出来，因为如果直接使用setTimeout中使用this的话，
+                // func可能是一个箭头函数，那么这样this指向就有误了
+                const that = this
+                clearTimeout(timeout)
+                timeout = setTimeout(() => {
+                    func.apply(that, args)
+                }, wait);
+            }
+        }
+
+        // 使用
+        window.addEventListener(
+            'resize',
+            debounce(() => {
+                console.log('窗口大小改变')
+            }, 100)
+        )
+
+    </script>
+</body>
+
+</html>
