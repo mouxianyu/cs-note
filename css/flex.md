@@ -67,6 +67,7 @@ flex 容器内的元素沿着两个轴来布局：
 -   **默认值：** 0，表示元素不会扩张
 -   **取值：** 一个无单位的数值（0、1、2 等），数值越大，在容器中占据的空间比例越大
 -   **计算方式：** 每个增长量 = (flex-grow 的值 / 总 flex-grow 的值) \* 额外空间
+
     ![flex-grow compute](/css/assets/flex/flex-grow-compute.png)
 
 ### flex-shrink 收缩
@@ -75,6 +76,7 @@ flex 容器内的元素沿着两个轴来布局：
 -   **默认值：** 1，表示项目可以缩小以适应容器尺寸
 -   **取值：** 一个无单位数值，0 表示不会缩小，其他数值表示项目可以按比例缩小
 -   **计算方式：** 每个收缩量= ( [flex-shrink \* flex-basic] 的值 / 总 [flex-shrink\*flex-basic] 的值) \* 超出的空间
+
     ![flex-shrink compute](/css/assets/flex/flex-shrink-compute.png)
 
 ### flex-basic 基础尺寸
