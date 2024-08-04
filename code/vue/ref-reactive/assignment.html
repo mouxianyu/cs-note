@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../vue.global.js"></script>
+    <div id="app">
+        <p>ref: {{refItem}}</p>
+        <p>reactive: {{reactiveItem}}</p>
+    </div>
+    <script>
+        const { createApp, ref, reactive } = Vue
+
+        createApp({
+            setup() {
+                let refItem = ref('ref')
+                let reactiveItem = reactive({ value: 'reactive' })
+                // setTimeout(() => {
+                //     // 整个赋值ref、reactive都会失去响应
+                //     console.log('整个重新赋值')
+                //     refItem = ref('ref replaced')
+                //     reactiveItem = reactive({ value: 'reactive replaced' })
+                // }, 1000);
+
+                setTimeout(() => {
+                    // ref .value赋值，可以任何赋值都能实现
+                    console.log('ref .value赋值')
+                    // refItem.value = 'ref .value replaced'
+                    refItem.value = { obj: 'ref .value replaced' }
+
+                    // reactive .value也可以实现，本质上没太大差别
+                    // reactiveItem.value = ('reactive .value 赋值')
+                    reactiveItem.value = { obj: '赋值对象' }
+
+                }, 1000);
+                return {
+                    refItem,
+                    reactiveItem
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

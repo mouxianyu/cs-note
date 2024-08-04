@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../vue.global.js"></script>
+    <div id="app">
+        <p>ref: {{refItem}}</p>
+        <p>reactive: {{reactiveItem.name2}}</p>
+    </div>
+    <script>
+        const { createApp, ref, reactive, toRefs } = Vue
+
+        createApp({
+            setup() {
+                let refItem = ref({ name: 'ref' })
+                let reactiveItem = reactive({ name2: 'reactive' })
+                // let { name } = refItem
+                // 直接解构会不存在
+                // undefined
+                // console.log(name)
+
+                let { value } = refItem
+                console.log('解构ref的value', value)
+                // 解构后的value相当于reactive
+                value.name = '解构value'
+
+                // 再次解构和reactive的结果一样
+                // let { name } = value
+                // 这边用toRefs不行了，还是失去响应了
+                let { name } = toRefs(value)
+                name = '失去响应'
+                console.log(name)
+
+                // 解构会获得值，但是失去响应
+                // let { name2 } = reactiveItem
+                // 使用toRefs可以保留响应
+                let { name2 } = toRefs(reactiveItem)
+                // name2.value赋值后，reactiveItem.name2也会跟着变化
+                name2.value = '失去响应'
+                console.log(reactiveItem.name2)
+
+                return {
+                    refItem,
+                    reactiveItem,
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
