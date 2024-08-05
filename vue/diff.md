@@ -26,3 +26,13 @@
 -   **静态提升（hoistStatic）**：在 Vue2 中，无论元素是否参与更新，每次触发更新都会重新创建所有 vnode。而 Vue3 对于不参与更新的 vnode，会做静态提升，只创建一次并保存其引用，在后续的 re-render 时直接复用，避免了重复创建的开销。
 -   **事件侦听缓存（cacheHandlers）**：在 Vue2 中，`onClick`等事件会被视为动态绑定，每次 diff 时都要追踪其变化。而在 Vue3 中，如果事件是不会变化的，会将其缓存起来，该节点也不会被标记上 Patch Flag，从而在 render 和 diff 阶段都节约了不必要的性能消耗。
 -   **使用最长递增子序列优化对比流程**：在 Vue2 的`updateChildren`函数中对比变更，而 Vue3 主要在`patchKeyedChildren`函数里进行。例如对于新旧 children 数组（如老的 children：`(a, b, c, d, e, f, g)`，新的 children：`(a, b, f, c, d, e, h, g)`），会先进行头和头比、尾和尾比，得到部分相同节点；再保存未比较过的节点，并通过映射获取它们在数组中的下标，生成新数组；然后取出新数组中的最长递增子序列，最后只需将其他剩余节点基于该子序列的位置进行移动、添加或删除操作，而不是像 Vue2 中进行多种可能的比较，提高了对比效率。
+
+## nextTick()
+
+nextTick 的回调函数就是等下次虚拟 DOM 渲染成真实 DOM 的时候执行
+
+## Vue 在什么情况下触发虚拟 DOM 渲染成真实 DOM
+
+Vue 在更新 DOM 时是异步执行的。只要侦听到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个 watcher 被多次触发，只会被推入到队列中一次。
+
+然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。Vue 在内部对异步队列尝试使用原生的 Promise.then、MutationObserver 和 setImmediate，如果执行环境不支持，则会采用 setTimeout(fn, 0) 代替。

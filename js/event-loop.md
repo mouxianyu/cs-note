@@ -37,45 +37,61 @@ JavaScript 是一种单线程语言，这意味着它一次只能执行一个任
 微任务队列包含了一些**需要尽快执行**的任务，它们会在当前执行栈清空以及当前宏任务完成后立即执行。
 常见的**微任务**包括：
 
--   Promise 回调的回调函数（then、catch、finally）
+-   Promise 回调的回调函数（then、catch、finally）(new Promise 这个过程是同步的，只要到回调函数的时候是微任务)
 -   `MutationObserver`  回调，用于监听 DOM 变动
 -   `queueMicrotask()` API，可以用来延迟执行一些小的、非阻塞的任务
 
 ## 事件循环过程
 
+一个事件循环可以看成一个宏任务的执行过程。整体可以看成按照顺序执行执行宏任务
+
 同一层级下优先级：同步任务>微任务>宏任务
 
--   首先执行整体代码（整体看成一个宏任务）,其中包含同步任务、微任务、宏任务（它们里面可能还嵌套着同步任务、微任务、宏任务，这里先看成一个整体）
-    -   同步任务直接执行
-    -   微任务加入微任务队列，宏任务加入宏任务队列
--   同步任务执行完后执行微任务
--   微任务执行完后执行宏任务
--   微任务、宏任务里面可能还嵌套其他的同步任务、微任务、宏任务。内部的执行顺序也是按照：同步任务>微任务>宏任务 这样的顺序来执行的
+-   首先执行整体代码（整体看成一个宏任务）
+-   碰到同步任务直接执行，碰到微任务、宏任务将其加入对应的微任务、宏任务队列
+-   同步任务执行完后开始执行微任务，执行微任务过程中产生的微任务、宏任务也是分别加入各自的队列
+-   等到所有微任务执行完成，包括微任务中产生的微任务（微任务队列为空，执行栈也为空）的时候，执行宏任务队列中的下一个宏任务
+-   然后循环往复这个构成，一个一个宏任务执行下去
 
 ```js
-console.log('Start of script')
+console.log('Start')
 
 setTimeout(() => {
-    console.log('This is a macro task')
+    console.log('第一层的宏任务')
     // 假设在这个宏任务中，又触发了一个微任务
     Promise.resolve().then(() => {
-        console.log('This inner micro task')
+        console.log('第二层的微任务')
+        // 微任务中又触发了宏任务
+        // 第一层的宏任务2比这个先加入，所以第三层的宏任务最后执行
+        setTimeout(() => {
+            console.log('第三层的宏任务')
+        })
+        Promise.resolve().then(() => {
+            console.log('第三层的微任务')
+        })
     })
 }, 0)
 
-// 这个微任务会在第一个宏任务执行完毕后执行
-Promise.resolve().then(() => {
-    console.log('This is a micro task')
+setTimeout(() => {
+    console.log('第一层的宏任务2')
 })
 
-console.log('End of script')
+// 这个微任务会在第一个宏任务执行完毕后执行
+Promise.resolve().then(() => {
+    console.log('第一层的微任务')
+})
+
+console.log('End')
 
 // 打印结果
-// Start of script
-// End of script
-// This is a micro task
-// This is a macro task
-// This inner micro task
+// Start
+// End
+// 第一层的微任务
+// 第一层的宏任务
+// 第二层的微任务
+// 第三层的微任务
+// 第一层的宏任务2
+// 第三层的宏任务
 ```
 
 ## 为什么微任务优先级高于宏任务
