@@ -24,13 +24,30 @@ JavaScript 是一种单线程语言，这意味着它一次只能执行一个任
 宏任务队列包含了一些**需要较长时间执行**的任务，它们通常不会立即执行，而是在当前执行栈清空后按顺序执行。
 常见的**宏任务**包括：
 
--   `setTimeout`  和  `setInterval`  定时器
+-   `setTimeout`、` setInterval`、`setImmediate`
 -   I/O 操作
-    -   网络请求：如 XMLHttpRequest 发起的 HTTP 请求
+    -   网络请求：如 XMLHttpRequest 发起的 HTTP 请求（promise、fetch 发起请求也算是宏任务，回调是微任务）
     -   文件读取/写入：通过 FileReader API，可以读取本地文件系统中的文件内容
     -   与服务器的通信：包括数据的上传和下载等。
--   UI 渲染
+-   DOM 事件的回调
+    -   如 load、error、resize、scroll、click 等，这些事件的回调函数
 -   `requestAnimationFrame`  用于动画和页面渲染（其回调函数会在浏览器下一次重绘前执行）
+
+##### UI 渲染
+
+这边的一个任务的小灰快就是一次事件循环，也就是一个宏任务。
+
+![UI渲染单独在一个宏任务中](assets/event-loop/image.png)
+
+这个图片可以看到 UI 渲染单独在一个宏任务中执行
+
+![UI渲染穿插在一个宏任务中](assets/event-loop/image-1.png)
+
+上图的 UI 渲染穿插在一个宏任务中
+
+> -   UI 渲染在事件循环中通常会作为一个宏任务执行，也可能在某个宏任务中穿插执行。因此通常情况下算宏任务，但是也存在不算宏任务的情况。
+> -   此外绿色绘制部分会开启宏任务，紫色渲染部分只要在一个宏任务中进行就可以（目前观察结果是这样）
+> -   绘制可能是回流，渲染可能是重绘（🤔 可能是，但是绘制和渲染可能不止包含回流和重绘）
 
 #### 微任务队列（Micro Task Queue）
 
@@ -39,7 +56,17 @@ JavaScript 是一种单线程语言，这意味着它一次只能执行一个任
 
 -   Promise 回调的回调函数（then、catch、finally）(new Promise 这个过程是同步的，只要到回调函数的时候是微任务)
 -   `MutationObserver`  回调，用于监听 DOM 变动
--   `queueMicrotask()` API，可以用来延迟执行一些小的、非阻塞的任务
+-   Node.js 的 `process.nextTick(fn)`：引擎在当前操作结束（下个事件循环开始之前），调用该回调函数。
+-   `queueMicrotask()` API： 是一个 Web API，它允许你在当前 JavaScript 执行栈的尾部（也就是当前宏任务的尾部）立即调度一个微任务的执行。这意味着注册的微任务会在当前执行栈清空之后、事件循环的下一个宏任务开始之前执行。
+-   Vue 中的`nextTick()`
+    -   Vue2：根据浏览器是否支持，按照优先级实现：`MutationObserver`>`Promise`>`setImmediate`>`setTimeout(fn,0)`
+    -   Vue3：根据浏览器是否支持，按照优先级实现：`queueMicroTask`>`Promise.resolve().then(callback)`
+
+> queueMicrotask() 与 Promise.then() 的区别在于执行时机。Promise.then() 中的回调是一个微任务，但它会等待当前执行栈中的所有同步和微任务完成后才执行。而 queueMicrotask() 则用于在当前执行栈清空后立即执行，即使有其他 Promise.then() 微任务在队列中等待。
+>
+> Promise.then()执行时机稍晚一些
+>
+> 在 Node.js 中，nextTick 会将回调函数放入一个微任务队列中。当当前执行栈完成后，会先执行微任务队列中的任务，然后再进入下一次事件循环。这样可以确保在当前阶段的操作完成后，尽快执行 nextTick 中的回调，而不需要等待下一次宏任务（如定时器、I/O 操作等）的触发。
 
 ## 事件循环过程
 
