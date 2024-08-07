@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            border: 0;
+            outline: none;
+            padding: 0;
+        }
+
+        main {
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .wrapper {
+            width: 400px;
+            height: 250px;
+            outline: 1px solid #000;
+            margin: 20px 0;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            text-align: left;
+        }
+
+        .code {
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            line-height: 1.2;
+            text-align: left;
+            list-style: none;
+            font-size: 12px;
+            font-family: monospace;
+        }
+
+        .inner {
+            width: 250px;
+            height: 100px;
+            background-color: cyan;
+            outline: inherit;
+            position: relative;
+        }
+
+        .vertical-align {
+            line-height: 250px;
+            height: 250px;
+        }
+
+        .vertical-align .inner {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .absolute {
+            position: relative;
+        }
+
+        .absolute .inner {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .absolute2 {
+            position: relative;
+        }
+
+        .absolute2 .inner {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex2 {
+            display: flex;
+        }
+
+        .flex2 .inner {
+            align-self: center;
+        }
+
+        .flex3 {
+            display: flex;
+        }
+
+        .flex3 .inner {
+            margin: auto 0;
+        }
+
+        .table-cell {
+            transform: translateX(50%);
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .grid {
+            display: grid;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h2>vertical-align: middle / line-height = height</h2>
+        <div class="wrapper vertical-align">
+            <ul class="code">
+                <li>height: 100px;</li>
+                <li>line-height: 100px;</li>
+            </ul>
+            <div class="inner">
+                <ul class="code">
+                    <li>display: inline-block;</li>
+                    <li>vertical-align: middle;</li>
+                </ul>
+            </div>
+        </div>
+        <h2>vertical-align: middle / table-cell</h2>
+        <div class="wrapper table-cell">
+            <ul class="code">
+                <li>display: table-cell;</li>
+                <li>vertical-align: middle;</li>
+            </ul>
+            <div class="inner">
+            </div>
+        </div>
+        <h2>absolute / transform</h2>
+        <div class="wrapper absolute">
+            <ul class="code">
+                <li>position: relative;</li>
+            </ul>
+            <div class="inner">
+                <ul class="code">
+                    <li>position: absolute;</li>
+                    <li>top: 50%;</li>
+                    <li>transform: translateY(-50%);</li>
+                </ul>
+            </div>
+        </div>
+        <h2>flex (grid) / align-items</h2>
+        <div class="wrapper flex">
+            <ul class="code">
+                <li>display: flex (grid);</li>
+                <li>align-items: center;</li>
+            </ul>
+            <div class="inner">
+            </div>
+        </div>
+        <h2>flex (grid) / align-self</h2>
+        <div class="wrapper flex2">
+            <ul class="code">
+                <li>display: flex (grid);</li>
+            </ul>
+            <div class="inner">
+                <ul class="code">
+                    <li>align-self: center;</li>
+                </ul>
+            </div>
+        </div>
+        <h2>margin: auto 0 / absolute</h2>
+        <div class="wrapper absolute2">
+            <ul class="code">
+                <li>position: relative;</li>
+            </ul>
+            <div class="inner">
+                <ul class="code">
+                    <li>position: absolute;</li>
+                    <li>top: 0;</li>
+                    <li>bottom: 0;</li>
+                    <li>margin: auto 0;</li>
+                </ul>
+            </div>
+        </div>
+        <h2>margin: auto 0 / flex (grid)</h2>
+        <div class="wrapper flex3">
+            <ul class="code">
+                <li>display: flex(grid);</li>
+            </ul>
+            <div class="inner">
+                <ul class="code">
+                    <li>margin: auto 0;</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
