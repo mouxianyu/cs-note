@@ -61,7 +61,7 @@ flex 容器内的元素沿着两个轴来布局：
 
 ## 动态尺寸
 
-[flex-grow、flex-shrink 计算示例.html](/code/css/flex/flex.html)
+[flex-grow / flex-shrink Demo](/code/css/flex/flex.html)
 
 ### flex-grow 扩张
 
@@ -159,7 +159,22 @@ flex: \<flex-grow\> \<flex-shrink | flex-basic\>
 4. baseline: 所有 flex 项在交叉轴的基线对齐（基线是文本的底部，对于非文本元素，基线可能不明确）。
 5. stretch: 默认值。如果 flex 项没有设置高度（对于行布局）或宽度（对于列布局），则它们将伸缩以填充容器在交叉轴上的空间。
 
-> 使用 align-self 可以控制单个元素在交叉轴上的对齐方式，可以使用的值与 align-items 相同，但是多一个 auto：表示使用 align-items 的值
+### 控制自身在交叉轴的对齐 align-self
+
+可以使用的值与 **align-items 相同**，但是多一个 auto：表示使用 align-items 的值
+
+![alt text](assets/flex/image.png)
+
+### 控制换行时交叉轴上的对齐方式 align-content
+
+当 Flex 容器的子元素不能全部放在一行，需要换行时，align-content 就发挥作用了。它定义了这些行在 Flex 容器的交叉轴（垂直轴）上的分布方式。
+
+可以使用的值与 **justify-content 相同**，默认值也相同，都是 stretch
+
+![alt text](assets/flex/image-1.png)
+
+[align-self / align-content Demo](/code/css/flex/align.html)
+
 > align-items 没有 space-xxx 的值，justify-content 没有 baseline 的值
 
 ## 排序
@@ -176,3 +191,7 @@ flex: \<flex-grow\> \<flex-shrink | flex-basic\>
     order: 1;
 }
 ```
+
+## 间隙
+
+使用 gap 或者 margin 来调整间隙
