@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            margin: 100px auto;
+            outline: 1px solid #000;
+            display: grid;
+            grid: auto-flow / 1fr 1fr 1fr;
+            width: 800px;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .wrapper div {
+            outline: inherit;
+            background-color: cyan;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="wrapper">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </main>
+</body>
+
+</html>

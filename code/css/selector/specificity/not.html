@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul :not(.red, .yellow, ol) {
+            color: blue;
+        }
+
+        ul ol {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="normal">Level 1</li>
+        <li class="red">Level 1</li>
+        <li class="yellow">Level 1</li>
+        <li>Level 1</li>
+        <li>
+            <ul>
+                <li>Level 2</li>
+                <li>Level 2</li>
+                <li>Level 2</li>
+            </ul>
+        </li>
+    </ul>
+    <ul>
+        <ol class="normal">Level 1</ol>
+        <ol class="red">Level 1</ol>
+        <ol>Level 1</ol>
+        <ol>Level 1</ol>
+    </ul>
+</body>
+
+</html>

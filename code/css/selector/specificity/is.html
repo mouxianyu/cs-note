@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            border: 0;
+        }
+
+        ul {
+            margin-left: 1.2em;
+        }
+
+        /* 第一层设置红色 */
+        /* :is(li, ol, .red) 整个优先级看成.red的优先级，li，ol都看成.red的优先级 */
+        ul :is(li, ol, .red) {
+            color: red
+        }
+
+        ul :is(li, ol) {
+            color: blueviolet
+        }
+
+        /* 第一层设置红色 */
+        ul li,
+        ul ol {
+            color: cyan;
+        }
+
+        /* 第二层设置黄色 */
+        ul li li,
+        ul li ol,
+        ul ol li,
+        ul ol ol {
+            color: yellow;
+        }
+
+        /* 第二层设置黄色 */
+        ul :is(li, ol) :is(li, ol) {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <ul>
+            <li>Level 1</li>
+            <li>
+                <ul>
+                    <li>Level 2</li>
+                    <li>
+                        <ul>
+                            <ol>Level 3</ol>
+                            <ol>Level 3</ol>
+                            <ol>Level 3</ol>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Level 1</li>
+            <li>
+                <ul>
+                    <ol>Level 2</ol>
+                    <ol>Level 2</ol>
+                    <ol>
+                        <ul>
+                            <li>Level 3</li>
+                            <li>Level 3</li>
+                            <li>Level 3</li>
+                        </ul>
+                    </ol>
+                </ul>
+            </li>
+        </ul>
+    </main>
+</body>
+
+</html>
