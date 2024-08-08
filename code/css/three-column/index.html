@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            border: 0;
+            outline: 0;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+
+        main {
+            padding: 40px 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .list {
+            list-style: decimal;
+            margin-left: 1.8em;
+            margin-top: 10px;
+            color: #333;
+            font-size: 16px;
+            font-family: monospace;
+        }
+
+        .code {
+            font-size: 12px;
+            font-family: monospace;
+            list-style: none;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 200px;
+            outline: 1px solid #000;
+            padding: 20px 20px;
+            margin: 10px 0;
+        }
+
+        .item {
+            outline: 1px solid #000;
+            height: 100%;
+            background-color: rgba(255, 0, 0, 0.1);
+            padding: 0 10px;
+            position: relative;
+        }
+
+        .item::before,
+        .item::after {
+            content: 'center';
+            font-size: 12px;
+            font-family: monospace;
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            display: block;
+            color: purple;
+        }
+
+        .item.left::before {
+            content: 'left';
+        }
+
+        .item.right::before {
+            content: 'right';
+        }
+
+        .item::after {
+            left: unset;
+            right: 10px;
+            color: orangered;
+        }
+
+        .item:nth-of-type(1)::after {
+            content: '元素顺序: 1';
+        }
+
+        .item:nth-of-type(2)::after {
+            content: '元素顺序: 2';
+        }
+
+        .item:nth-of-type(3)::after {
+            content: '元素顺序: 3';
+        }
+
+        .wrapper .item.left {
+            width: 200px;
+            margin-right: 20px;
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+
+        .wrapper .item.right {
+            width: 200px;
+            margin-left: 20px;
+            background-color: rgba(0, 0, 255, 0.1);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex .item.center {
+            flex-grow: 1;
+        }
+
+        .float .item.left {
+            float: left;
+        }
+
+        .float .item.center {
+            overflow: auto;
+        }
+
+        .float .item.right {
+            float: right;
+        }
+
+        .absolute {
+            position: relative;
+        }
+
+        .absolute .left {
+            height: 160px;
+            width: 160px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .absolute .right {
+            height: 160px;
+            width: 160px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .absolute .center {
+            margin-left: 220px;
+            margin-right: 220px;
+            overflow: auto;
+        }
+
+        .table {
+            display: table;
+        }
+
+        .table .item {
+            display: table-cell;
+        }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 200px 1fr 200px;
+        }
+
+        .grid .item {
+            margin: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <h2>1. flex</h2>
+            <ul class="code">
+                <li>display: flex;</li>
+            </ul>
+            <div class="wrapper flex">
+                <div class="item left"></div>
+                <div class="item center">
+                    <ul class="code">
+                        <li>flex-grow: 1;</li>
+                    </ul>
+                </div>
+                <div class="item right"></div>
+            </div>
+            <h3>缺点</h3>
+            <ul class="list">
+                <li>部分浏览器可能有兼容问题</li>
+            </ul>
+        </section>
+        <section>
+            <h2>2. float + BFC</h2>
+            <div class="wrapper float">
+                <div class="item left">
+                    <ul class="code">
+                        <li>float: left;</li>
+                    </ul>
+                </div>
+                <div class="item right">
+                    <ul class="code">
+                        <li>float: right;</li>
+                    </ul>
+                </div>
+                <div class="item center">
+                    <ul class="code">
+                        <li><strong>BFC</strong>: 排除外部浮动</li>
+                        <li>overflow: auto;</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>缺点</h3>
+            <ul class="list">
+                <li>节点顺序变化</li>
+                <li>容器宽度小于左右两边之和的时候，右边元素会被挤下来</li>
+            </ul>
+        </section>
+        <section>
+            <h3>3. absolute</h3>
+            <ul class="code">
+                <li>position: relative;</li>
+            </ul>
+            <div class="wrapper absolute">
+                <div class="item left">
+                    <ul class="code">
+                        <li>height: 160px;</li>
+                        <li>width: 160px;</li>
+                        <li>position: absolute;</li>
+                        <li>top: 20px;</li>
+                        <li>left: 20px;</li>
+                    </ul>
+                </div>
+                <div class="item center">
+                    <ul class="code">
+                        <li>margin-left: 220px;</li>
+                        <li>margin-right: 220px;</li>
+                        <li><strong>BFC</strong>: 防止 margin 塌陷</li>
+                        <li>overflow: auto;</li>
+                    </ul>
+                </div>
+                <div class="item right">
+                    <ul class="code">
+                        <li>height: 160px;</li>
+                        <li>width: 160px;</li>
+                        <li>position: absolute;</li>
+                        <li>top: 20px;</li>
+                        <li>right: 20px;</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>缺点</h3>
+            <ul class="list">
+                <li>容器宽度小于左右两边之和的时候会重叠</li>
+            </ul>
+        </section>
+        <section>
+            <h2>4. table</h2>
+            <ul class="code">
+                <li>display: table;</li>
+            </ul>
+            <div class="wrapper table">
+                <div class="item left">
+                    <ul class="code">
+                        <li>display: table-cell;</li>
+                    </ul>
+                </div>
+                <div class="item center">
+                    <ul class="code">
+                        <li>display: table-cell;</li>
+                    </ul>
+                </div>
+                <div class="item right">
+                    <ul class="code">
+                        <li>display: table-cell;</li>
+                    </ul>
+                </div>
+            </div>
+            <h3>缺点</h3>
+            <ul class="list">
+                <li>表格单元之间不支持 margin 间隙，需要用 padding 之类的实现</li>
+            </ul>
+        </section>
+        <section>
+            <h2>5. grid</h2>
+            <ul class="code">
+                <li>display: grid;</li>
+                <li>gap: 20px;</li>
+                <li>grid-template-columns: 200px 1fr 200px;</li>
+            </ul>
+            <div class="wrapper grid">
+                <div class="item left"></div>
+                <div class="item center"></div>
+                <div class="item right"></div>
+            </div>
+            <h3>缺点</h3>
+            <ul class="list">
+                <li>部分浏览器可能不兼容</li>
+            </ul>
+        </section>
+    </main>
+</body>
+
+</html>
