@@ -130,9 +130,3 @@ setTimeout(() => {
     twoWayBind.data.message = '你好世界'
 }, 2000)
 ```
-
----
-
-## 参考
-
-https://juejin.cn/post/6844903479044112391#heading-6
