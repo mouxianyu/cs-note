@@ -64,6 +64,7 @@ function setKeyReactive(obj, key, callback) {
         }
     })
     // 创建观察者的时候会调用构造函数，里面有对obj[key]的使用，会触发一个get
+    // 这边只放了一个观察者，当然，实际上会不止一个
     new Observer(obj, key, callback)
 }
 
