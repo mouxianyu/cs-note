@@ -160,3 +160,102 @@ const firstPositive = array.find(function (element) {
 #### `Object.getOwnPropertySymbols()`
 
 返回一个包含给定对象所有自有 Symbol 属性的数组
+
+> -   对象方法默认是可枚举的
+> -   从 class 创建的实例的对象方法默认是不可枚举的
+> -   私有属性无法获取
+
+### 对象使用相关方法的结果
+
+```js
+const obj = {
+    name: 'hh',
+    age: 20,
+    [Symbol('gender')]: 'male',
+    // 属性方法是可枚举的
+    say() {
+        console.log('hello')
+    }
+}
+
+// [ 'name', 'age', 'say' ]
+console.log('Object.keys', Object.keys(obj))
+// [ 'hh', 20, [Function: say] ]
+console.log('Object.values', Object.values(obj))
+// [ [ 'name', 'hh' ], [ 'age', 20 ], [ 'say', [Function: say] ] ]
+console.log('Object.entries', Object.entries(obj))
+// [ 'name', 'age', 'say', Symbol(gender) ]
+console.log('Reflect.ownKeys', Reflect.ownKeys(obj))
+// [ 'name', 'age', 'say' ]
+console.log('Object.getOwnPropertyNames', Object.getOwnPropertyNames(obj))
+// [ Symbol(gender) ]
+console.log('Object.getOwnPropertySymbols', Object.getOwnPropertySymbols(obj))
+
+const entries = []
+for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const val = obj[key]
+        entries.push([key, val])
+    }
+}
+
+// [ [ 'name', 'hh' ], [ 'age', 20 ], [ 'say', [Function: say] ] ]
+console.log(entries)
+```
+
+### Class 创建实例对象相关方法结果
+
+```js
+class MyObject {
+    name
+
+    // 私有属性打印不出来
+    #age
+
+    hobby;
+
+    [Symbol('gender')]
+
+    // class创建的实例中方法是不可枚举的
+    say() {
+        console.log('hello')
+    }
+
+    constructor(name, age, hobby, gender) {
+        this.name = name
+        this.#age = age
+        this.hobby = hobby
+        this[Symbol('gender')] = gender
+    }
+}
+
+const obj = new MyObject('hh', 20, 'sing', 'male')
+
+// Object.keys [ 'name', 'hobby' ]
+console.log('Object.keys', Object.keys(obj))
+
+// Object.values [ 'hh', 'sing' ]
+console.log('Object.values', Object.values(obj))
+
+// Object.entries [ [ 'name', 'hh' ], [ 'hobby', 'sing' ] ]
+console.log('Object.entries', Object.entries(obj))
+
+// Reflect.ownKeys [ 'name', 'hobby', Symbol(gender), Symbol(gender) ]
+console.log('Reflect.ownKeys', Reflect.ownKeys(obj))
+
+// Object.getOwnPropertyNames [ 'name', 'hobby' ]
+console.log('Object.getOwnPropertyNames', Object.getOwnPropertyNames(obj))
+
+// Object.getOwnPropertySymbols [ Symbol(gender), Symbol(gender) ]
+console.log('Object.getOwnPropertySymbols', Object.getOwnPropertySymbols(obj))
+
+const entries = []
+for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const val = obj[key]
+        entries.push([key, val])
+    }
+}
+// [ [ 'name', 'hh' ], [ 'hobby', 'sing' ] ]
+console.log(entries)
+```
