@@ -6,6 +6,8 @@
 2. **块级作用域**：var 不存在块级作用域，let 存在
 3. **重复声明**：var 允许变量重复声明，let 不允许
 
+> 在 use strict 模式下，var 还是可以变量提升、重复声明、不存在块级作用域
+>
 > 如果在函数中不声明 var，那么这个变量就是全局的
 
 ```js
@@ -16,8 +18,6 @@ function change() {
 change()
 console.log(a) // 20
 ```
-
-> TODO: 在 use strict 模式下，var 会怎么样
 
 ### 变量提升
 
