@@ -75,9 +75,9 @@ domain 属性定义了 Cookie 的有效域，即 Cookie 可以被哪些子域所
 
 -   **不设置**：没有 Domain 属性的 Cookie 不会自动被子域继承
     -   例如：例如，如果你在www.example.com接收到一个没有Domain属性的Cookie，它不会自动发送到subdomain.example.com。
--   **设置**： 设置后所有子域都可以访问 cookie
-    -   例如：domain=example.com，则所有子域 xxx.example.com 都可以访问 cookie
-    -   例如：domain=www.example.com，则所有子域 xxx.www.example.com 都可以访问 cookie
+-   **设置**： 设置的 domain 的同级别已经更低级别都能访问
+    -   例如：domain=example.com，则 example.com 和其所有子域 xxx.example.com 都可以访问 cookie
+    -   例如：domain=www.example.com，则 www.example.com 所有子域 xxx.www.example.com 都可以访问 cookie
 -   **无效**：如果 domain 设置成其他域名，则无效。
     -   如站点是 www.xxx.com ，domain 设置成 yyy.com，这样就无效
 
