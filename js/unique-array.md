@@ -74,7 +74,7 @@ Map 对象可以存储键值对，并且键是唯一的。
 let uniqueArray = Array.from(new Map(array.map(item => [item, true])).keys())
 ```
 
-## 4.使用 sort 和 length 比较
+## 4.使用 sort 和 length 比较（会改变原来的顺序）
 
 先将数组排序，然后比较相邻元素，如果不同则添加到新数组中。
 

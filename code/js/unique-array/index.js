@@ -41,8 +41,21 @@ function byIndexOf(arr) {
     }, [])
 }
 
+function byNear(array) {
+    let uniqueArray = []
+    array.sort()
+    uniqueArray.push(array[0])
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] !== array[i - 1]) {
+            uniqueArray.push(array[i])
+        }
+    }
+    return uniqueArray
+}
+
 console.log(bySet(arr), 'Set')
 console.log(byFilter(arr), 'filter')
 console.log(byIncludes(arr), 'includes')
 console.log(byMap(arr), 'map')
 console.log(byIndexOf(arr), 'indexOf')
+console.log(byNear(arr), 'byNear')
