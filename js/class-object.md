@@ -69,3 +69,46 @@ Parent.age = 20
 // 打印：undefined
 console.log(Child.age)
 ```
+
+## 构造函数
+
+### ES5
+
+在 JavaScript 中，构造函数是一种特殊的函数，用于创建和初始化新对象。构造函数通常用于定义对象的模板，允许你通过一种称为“构造”的方式来创建具有相同属性和方法的对象实例。
+
+构造函数是 JavaScript 面向对象编程的基础之一，它们允许开发者定义对象的结构和行为，并创建具有相同结构的多个实例。
+
+#### 特点
+
+-   **命名约定**：构造函数通常以大写字母开头，以区分普通函数。
+-   **使用 new 关键字**：调用构造函数时需要使用 new 关键字，这告诉 JavaScript 引擎你想要创建一个新对象。
+-   **this 关键字**：在构造函数内部，this 关键字指向新创建的对象，允许你在该对象上设置属性和方法。
+-   **原型链**：构造函数创建的对象会继承构造函数的 prototype 属性，这意味着你可以在构造函数的原型上定义方法，这些方法可以被所有实例共享。
+-
+
+```js
+function Person(firstName, lastName) {
+    this.firstName = firstName
+    this.lastName = lastName
+    this.fullName = function () {
+        return this.firstName + ' ' + this.lastName
+    }
+}
+
+const person1 = new Person('John', 'Doe')
+const person2 = new Person('Jane', 'Doe')
+
+console.log(person1.fullName()) // 输出: John Doe
+console.log(person2.fullName()) // 输出: Jane Doe
+```
+
+### ES6
+
+在 class 中，构造函数是一个特殊的方法，名为 constructor，用于初始化类的对象。当使用 new 关键字创建类的实例时，会自动调用 constructor 方法。
+
+#### 特点
+
+-   **定义方式**：在类中，使用 constructor 关键字定义构造函数。
+-   **自动绑定**：与普通函数不同，类中的 constructor 方法的 this 关键字自动绑定到新创建的实例上，不需要使用 bind 或箭头函数。
+-   **继承**：子类可以通过 extends 关键字继承父类的构造函数，但需要使用 super 关键字调用父类的构造函数。
+-   **原型链**：类的方法定义在类的 prototype 上，这与使用构造函数时相同。类的方法可以通过 this 访问实例的属性。
