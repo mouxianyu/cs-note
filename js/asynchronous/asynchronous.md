@@ -1,5 +1,11 @@
 # 异步实现
 
+Javascript 中常见的异步操作有
+
+-   **网络请求**：如 fetch、XMLHttpRequest 等。
+-   **定时操作**：如 setTimeout、setInterval。
+-   **文件操作**。
+
 ## 1. 回调（callback）
 
 ```js
@@ -94,83 +100,7 @@ console.log(num) // 6
 
 ![Async Await](js/asynchronous/async-await.md)
 
-## 5. 观察者模式（Observer pattern）
-
-观察者模式通常需要手动实现或使用某些库来辅助。这里是一个简单的手动实现：
-
-```js
-class Subject {
-    constructor() {
-        this.observers = []
-    }
-
-    addObserver(observer) {
-        this.observers.push(observer)
-    }
-
-    notify(data) {
-        this.observers.forEach(observer => observer.update(data))
-    }
-}
-
-class Observer {
-    constructor(name) {
-        this.name = name
-    }
-
-    update(data) {
-        console.log(`${this.name} received data: ${data}`)
-    }
-}
-
-const subject = new Subject()
-const observer1 = new Observer('Observer 1')
-const observer2 = new Observer('Observer 2')
-
-subject.addObserver(observer1)
-subject.addObserver(observer2)
-
-subject.notify('Async event occurred')
-```
-
-## 6. 事件监听（Event Listeners）
-
-在浏览器中，事件监听器用于响应用户操作等事件：
-
-```js
-document.addEventListener('click', function (event) {
-    console.log('Document clicked!')
-})
-
-// 模拟点击事件
-// 在真实环境中，这将由用户点击触发
-document.dispatchEvent(new Event('click'))
-```
-
-## 7. RxJS 和其他响应式编程库
-
-RxJS 是一个流行的响应式编程库，使用 Observables 处理异步事件：
-
-```js
-import {fromEvent} from 'rxjs'
-import {debounceTime, map} from 'rxjs/operators'
-
-const inputElement = document.querySelector('#myInput')
-const observable = fromEvent(inputElement, 'keyup')
-
-observable
-    .pipe(
-        debounceTime(300), // 300ms内连续按键只触发一次
-        map(event => event.target.value) // 映射事件为输入框的值
-    )
-    .subscribe({
-        next: value => console.log(`Typed: ${value}`),
-        error: err => console.error('Error:', err),
-        complete: () => console.log('Completed')
-    })
-```
-
-## 8. Worker 线程
+## 5. Worker 线程
 
 在浏览器中使用 Web Workers 进行异步操作：
 
@@ -193,7 +123,7 @@ self.addEventListener('message', function (event) {
 })
 ```
 
-## 9. Timers
+## 6. Timers
 
 使用 `setTimeout` 和 `setInterval` 实现定时任务：
 

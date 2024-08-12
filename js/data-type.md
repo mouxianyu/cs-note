@@ -62,21 +62,21 @@ Javascript 的数据类型主要分为两大类：**原始值**（Primitive Valu
 
 ## 原始值
 
-除了  [Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#object)  以外，所有类型都定义了表示在语言最低层面的[不可变](https://developer.mozilla.org/zh-CN/docs/Glossary/Immutable)值。我们将这些值称为**原始值**
+除了  Object  以外，所有类型都定义了表示在语言最低层面的不可变值。我们将这些值称为**原始值**
 
-除了  [`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/null)，所有原始类型都可以使用  [`typeof`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof)  运算符进行测试。`typeof null`  返回  `"object"`，因此必须使用  `=== null`  来测试  `null`。
+除了  `null`，所有原始类型都可以使用  `typeof`  运算符进行测试。`typeof null`  返回  `"object"`，因此必须使用  `=== null`  来测试  `null`。
 
-除了  [`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/null)  和  [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined)，所有原始类型都有它们相应的**对象包装类型**，这为处理原始值提供可用的方法。例如，[`Number`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)  对象提供像  [`toExponential()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/toExponential)  这样的方法。当在原始值上访问属性时，JavaScript 会**自动将值包装到相应的包装对象**中，并访问对象上的属性。然而，在  `null`  或  `undefined`  上访问属性时，会抛出  `TypeError`  异常，这需要采用[可选链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining)运算符。
+除了  `null`  和  `undefined`，所有原始类型都有它们相应的**对象包装类型**，这为处理原始值提供可用的方法。例如，`Number`  对象提供像  `toExponential()`  这样的方法。当在原始值上访问属性时，JavaScript 会**自动将值包装到相应的包装对象**中，并访问对象上的属性。然而，在  `null`  或  `undefined`  上访问属性时，会抛出  `TypeError`  异常，这需要采用可选链运算符。
 
-| 类型                                                                                                              | `typeof`  返回值 | 对象包装器                                                                                            |
-| ----------------------------------------------------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| [Null](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#null_%E7%B1%BB%E5%9E%8B)           | `"object"`       | 不适用                                                                                                |
-| [Undefined](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#undefined_%E7%B1%BB%E5%9E%8B) | `"undefined"`    | 不适用                                                                                                |
-| [Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#boolean_%E7%B1%BB%E5%9E%8B)     | `"boolean"`      | [`Boolean`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean) |
-| [Number](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#number_%E7%B1%BB%E5%9E%8B)       | `"number"`       | [`Number`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number)   |
-| [BigInt](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#bigint_%E7%B1%BB%E5%9E%8B)       | `"bigint"`       | [`BigInt`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt)   |
-| [String](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#string_%E7%B1%BB%E5%9E%8B)       | `"string"`       | [`String`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)   |
-| [Symbol](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures#symbol_%E7%B1%BB%E5%9E%8B)       | `"symbol"`       | [`Symbol`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol)   |
+| 类型      | `typeof`  返回值 | 对象包装器 |
+| --------- | ---------------- | ---------- |
+| Null      | `"object"`       | 不适用     |
+| Undefined | `"undefined"`    | 不适用     |
+| Boolean   | `"boolean"`      | `Boolean`  |
+| Number    | `"number"`       | `Number`   |
+| BigInt    | `"bigint"`       | `BigInt`   |
+| String    | `"string"`       | `String`   |
+| Symbol    | `"symbol"`       | `Symbol`   |
 
 原始值是**不可变的（Immutable）**，并且它们**没有属性或方法**。这意味着你不能像访问对象属性那样访问原始值的属性。例如，你不能对一个数字或字符串使用点操作符（`.`）来访问属性，因为它们没有属性。
 
@@ -97,29 +97,29 @@ console.log(str.length) // 输出 5，尽管字符串本身没有 length 属性
 Null 类型只有一个值：null
 Undefined 类型是有一个值：undefined
 
-从概念上讲，`undefined`  表示**值的缺失**，`null`  表示**对象的缺失**（这也可以说明  [`typeof null === "object"`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#typeof_null)  的原因）。当某些东西没有值时，该语言通常默认为  `undefined`：
+从概念上讲，`undefined`  表示**值的缺失**，`null`  表示**对象的缺失**（这也可以说明  `typeof null === "object"`  的原因）。当某些东西没有值时，该语言通常默认为  `undefined`：
 
--   没有值（`return;`）的  [`return`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/return)  语句，隐式返回  `undefined`。
--   访问不存在的[对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)属性（`obj.iDontExist`），返回  `undefined`。
+-   没有值（`return;`）的  `return`  语句，隐式返回  `undefined`。
+-   访问不存在的对象属性（`obj.iDontExist`），返回  `undefined`。
 -   变量声明时没有初始化（`let x;`），隐式初始化为  `undefined`。
--   许多像  [`Array.prototype.find()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)  和  [`Map.prototype.get()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map/get)  的方法，当没有找到元素时，返回  `undefined`。
+-   许多像  `Array.prototype.find()`  和  `Map.prototype.get()`  的方法，当没有找到元素时，返回  `undefined`。
 
-`null`  是一个[关键字](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Lexical_grammar#%E5%85%B3%E9%94%AE%E5%AD%97)，但是  `undefined`  是一个普通的[标识符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Lexical_grammar#%E6%A0%87%E8%AF%86%E7%AC%A6)
+`null`  是一个关键字，但是  `undefined`  是一个普通的标识符
 
 ### String 类型
 
 JavaScript 字符串是**不可变的**。这意味着一旦字符串被创建，就不可能修改它。字符串方法基于当前字符串的内容创建一个新的字符串——例如：
 
--   使用  [`substring()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/substring)  获取原始的子字符串。
--   使用串联运算符（`+`）或  [`concat()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/concat)  将两个字符串串联。
+-   使用  `substring()`  获取原始的子字符串。
+-   使用串联运算符（`+`）或  `concat()`  将两个字符串串联。
 
 ### Symbol 类型
 
-[`Symbol`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol)  是**唯一**并且**不可变**的原始值并且可以用来作为对象属性的键。symbol 的目的是去创建一个唯一属性键，保证不会与其他代码中的键产生冲突。
+`Symbol`  是**唯一**并且**不可变**的原始值并且可以用来作为对象属性的键。symbol 的目的是去创建一个唯一属性键，保证不会与其他代码中的键产生冲突。
 
 ## Object
 
-在计算机科学中，对象（object）是指内存中的可以被[标识符](https://developer.mozilla.org/zh-CN/docs/Glossary/Identifier)引用的一块区域。在 JavaScript 中，对象是**唯一**[可变](https://developer.mozilla.org/zh-CN/docs/Glossary/Mutable)的值。事实上，[函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions)也是具有额外**可调用能力**的对象。
+在计算机科学中，对象（object）是指内存中的可以被标识符引用的一块区域。在 JavaScript 中，对象是**唯一**可变的值。事实上，函数也是具有额外**可调用能力**的对象。
 
 ### 基本对象
 
@@ -130,3 +130,35 @@ JavaScript 字符串是**不可变的**。这意味着一旦字符串被创建�
     Boolean、Symbol 是其原始值的包装对象，同理 Number、String 等等也是
 
 此外还有 Date、Map、Set、Math、Array、JSON 等等对象
+
+## 类型判断
+
+### JS 中常见假值
+
+-   `false`：布尔假值
+-   `0`：数值 0
+-   `-0`：负数值 0（在 JavaScript 中，0 和-0 是相等的）
+-   `""` 或 `''`：空字符串
+-   `null`：表示无值的特殊值
+-   `undefined`：未定义的变量或未赋值的变量
+-   `NaN`：表示“不是一个数字”的特殊值
+
+### 判断假值
+
+1. **使用 if 语句**：直接在 if 条件中判断值是否为假值。
+2. **Boolean()函数**：将值传递给 Boolean()函数，它会将值转换为布尔值，从而判断是否为假值。
+3. **双非操作符**（`!!variable`）：强制转换变量为布尔值，然后检查结果是否为 false
+
+### 判断是 Object 还是 Array
+
+#### 判断是不是 Object
+
+1. `variable instanceof Object`
+2. `typeof variable && variable !== null`(`typeof null` 的值是 `Object`)
+3. `Object.prototype.toString.call(variable) ==='[object Object]'`
+
+#### 判断是不是 Array
+
+1. `Array.isArray(variable)`
+2. `variable instanceof Array`
+3. `Object.prototype.toString.call(variable) ==='[object Array]'`
