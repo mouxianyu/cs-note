@@ -152,3 +152,9 @@ fetch('https://api.example.com/submit', {
 -   jQuery.ajax：适合需要兼容旧浏览器或使用 jQuery 的项目，配置丰富但语法较为复杂。
 -   Fetch：适合现代浏览器和 Node.js，API 设计简洁，基于 Promise，但配置选项相对有限。
 -   Axios：适合需要高度可配置性和易用性的项目，支持浏览器和 Node.js，提供拦截器等高级功能。
+
+### XMLHttpRequest.withCredentials
+
+-   `XMLHttpRequest.withCredentials` 属性是一个布尔值，它指示了是否该使用类似 cookie、Authorization 标头或者 TLS 客户端证书等凭据进行跨站点访问控制（Access-Control）请求。
+-   在 XHR、jQuery.ajax()、Axios、Fetch 都有类似的配置，有的是 boolean，有的是其他选项
+-   通常来说就是用作是否要带 cookie 的意思
