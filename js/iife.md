@@ -24,3 +24,21 @@ IIFE 的语法结构通常如下：
     // 函数体
 })()
 ```
+
+## jQuery
+
+jQuery 库本身就是通过立即执行函数（IIFE）封装的。这种封装方式有助于创建一个独立的私有作用域，避免污染全局命名空间。
+
+jQuery 代码的开始通常看起来像这样：
+
+```js
+;(function (window, undefined) {
+    // jQuery 代码
+    // 这里的所有变量和函数都是局部的，不会影响到全局作用域
+})(window)
+```
+
+-   `(function( window, undefined ) {...})` 是一个立即执行函数表达式。
+-   window 参数传递给了 IIFE，使得在函数内部可以通过 window 访问全局对象，而不必使用全局变量 window。
+-   undefined 是一个参数，但并没有实际使用它，这样做的目的是确保在压缩代码时，即使某些变量被删除，undefined 也不会被重新赋值，因为 undefined 是一个严格保留字。
+-   window 作为参数传递给 IIFE 后，通常在函数内部用 $ 或 jQuery 作为局部变量来引用它，这样 $ 就不会成为全局变量。
