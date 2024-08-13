@@ -8,7 +8,7 @@
 
 ### 创建元素
 
--   `document.createElement(tagName) : 创建一个新的元素节点
+-   `document.createElement(tagName)` : 创建一个新的元素节点
 
 ### 获取元素
 

@@ -4,7 +4,7 @@
 
 ### Loading 属性
 
-HTML 提供了一个 loading 属性，可以添加到`<img>`标签中，值为"lazy"，指示浏览器延迟加载图片直到它进入视口。
+HTML 提供了一个 `loading` 属性，可以添加到`<img>`标签中，值为"lazy"，指示浏览器延迟加载图片直到它进入视口。
 
 -   Baseline 2023 Newly available across major browsers
 -   功能在 2023 年被主流浏览器所支持，并且这个支持达到了一个基本的、普遍认可的水平。
