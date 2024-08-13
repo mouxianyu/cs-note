@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     inputEl.addEventListener(
         'input',
         debounce(function (e) {
-            console.log(e.target.value)
+            console.log(e.target)
             console.log(this)
         }, 500)
     )

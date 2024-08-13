@@ -17,6 +17,7 @@ const throttle = (fn, wait) => {
 window.addEventListener(
     'scroll',
     throttle(function (e) {
+        console.log(e.target)
         console.log(this)
     }, 1000)
 )
