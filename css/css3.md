@@ -8,13 +8,16 @@ CSS3 是 CSS（层叠样式表）技术的升级版本，于 1999 年开始制�
 
 ## CSS3 新特性
 
--   **选择器扩展**：CSS3 增加了新的选择器，如属性选择器、伪类选择器和伪元素选择器，提供了更丰富的选择能力
--   **盒子模型增强**：引入了 box-sizing 属性，允许开发者改变元素的盒子模型算法，使得元素的宽度和高度可以包括内容、内边距、边框
--   **边框和背景属性增强**：包括圆角边框 border-radius、阴影效果 box-shadow、使用图片绘制边框 border-image，以及多背景图片和背景裁剪等属性
--   **过渡和动画效果**：CSS3 允许通过 transition 和 animation 属性实现平滑的过渡效果和复杂的动画效果
--   **响应式布局**：引入了媒体查询 media query 和弹性布局 Flexbox，使得网页能够根据不同设备的屏幕大小和分辨率进行自适应布局
--   **渐变**：CSS3 支持线性渐变 linear-gradient 和径向渐变 radial-gradient，为背景色提供了丰富的渐变效果
--   **变换**：通过 transform 属性，可以实现元素的旋转、缩放、倾斜和平移
--   **多列布局**：允许内容流动跨越多个指定的区域，提供了新的布局方式
--   **自定义字体**：通过 @font-face 规则，可以引入自定义字体，增强了网页的字体样式和表现力
--   **文本效果**：包括 text-shadow 属性为文本添加阴影，word-wrap 属性控制单词换行，以及 text-overflow 属性处理文本溢出情况
+1. flex、grid、多列布局
+2. 选择器扩展（属性选择器、伪类选择器、伪元素选择器）
+3. box-sizing
+4. 边框：border-radius、box-shadow、border-image 等
+5. 背景：background-clip、background-origin、background-size、background-break
+6. transition 和 animation
+7. media
+8. 渐变：linear-gradient、radial-gradient
+9. transform
+10. 自定义字体：@font-face
+11. 文本效果：text-shadow、word-wrap、text-overflow、text-decoration
+12. 颜色： rgba、hsla
+13. 混合模式：background-blend-mode、mix-blend-mode
