@@ -158,3 +158,61 @@ fetch('https://api.example.com/submit', {
 -   `XMLHttpRequest.withCredentials` 属性是一个布尔值，它指示了是否该使用类似 cookie、Authorization 标头或者 TLS 客户端证书等凭据进行跨站点访问控制（Access-Control）请求。
 -   在 XHR、jQuery.ajax()、Axios、Fetch 都有类似的配置，有的是 boolean，有的是其他选项
 -   通常来说就是用作是否要带 cookie 的意思
+
+## 前端将数据转化成 JSON 发给后端
+
+1. **创建数据对象**：首先，你需要有一个 JavaScript 对象，这个对象包含了你想要发送的数据。
+2. **使用 JSON.stringify()**：使用 JSON.stringify() 方法将 JavaScript 对象转换成 JSON 格式的字符串。这个方法接受一个值，并将其转换为 JSON 字符串。
+3. **创建 XMLHttpRequest 或使用 fetch API**：使用 XMLHttpRequest 对象或 fetch API 来发送 HTTP 请求。
+4. **设置请求方法和 URL**：指定请求的 HTTP 方法（如 GET、POST 等）和请求的 URL。
+5. **设置请求头部**：如果发送的是 POST 请求，需要设置请求头部，告诉服务器请求体的类型是 JSON。通常使用 Content-Type: application/json。
+6. **发送请求**：将 JSON 字符串作为请求体发送给服务器。
+
+### 使用 XHR
+
+```js
+var xhr = new XMLHttpRequest()
+var url = 'https://your-backend-url.com/api/data'
+var data = {key1: 'value1', key2: 'value2'}
+
+// 将数据转换为JSON字符串
+var jsonData = JSON.stringify(data)
+
+xhr.open('POST', url, true)
+xhr.setRequestHeader('Content-Type', 'application/json')
+
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText) // 请求成功，处理响应
+    }
+}
+
+// 发送JSON字符串
+xhr.send(jsonData)
+```
+
+### 使用 Fetch
+
+```js
+var url = 'https://your-backend-url.com/api/data'
+var data = {key1: 'value1', key2: 'value2'}
+
+// 将数据转换为JSON字符串
+var jsonData = JSON.stringify(data)
+
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: jsonData
+})
+    .then(response => {
+        if (response.ok) {
+            return response.json() // 解析JSON响应
+        }
+        throw new Error('Network response was not ok.')
+    })
+    .then(data => console.log(data)) // 处理返回的数据
+    .catch(error => console.error('Error:', error))
+```

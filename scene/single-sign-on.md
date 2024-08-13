@@ -43,3 +43,9 @@ window.addEventListener(
 ```
 
 前端通过 iframe+postMessage() 方式，将**同一份 Token 写入到了多个域下的 LocalStorage 中**，前端每次在向后端发送请求之前，都会主动从 LocalStorage 中读取 Token 并在请求中携带，这样就实现了同一份 Token 被多个域所共享。
+
+## 自己总结
+
+1. 认证中心：认证中心登录后后端生成 Cookie，将该 Cookie 通过后端分发给其他系统
+2. 不同子域：让子域名 Cookie 共享，登录一个子域，其他域名也就都登录了
+3. iframe + postMessage 跨域，token 可以存储在 localStorage 中，一个域名登录后，利用 iframe+postMessage，将其发送给其他域名
