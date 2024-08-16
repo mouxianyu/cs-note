@@ -68,6 +68,36 @@ array.forEach(function (element, index) {
 })
 ```
 
+#### 跳出循环
+
+```js
+const array = [1, 4, 32, 23, 3, 2]
+
+// 跳出当次循环
+array.forEach((item, index) => {
+    if (index == 1) {
+        // 这个return相当于continue
+        return
+    }
+    console.log(item)
+})
+
+// 跳出整个循环
+try {
+    array.forEach((item, index) => {
+        if (index == 1) {
+            // 这个return相当于break
+            throw new Error('跳出循环')
+        }
+        console.log(item)
+    })
+} catch (error) {
+    console.log(error.message)
+}
+```
+
+##### 跳出整个循环
+
 ### `Array.prototype.map()`
 
 用于遍历数组并对每个元素执行操作，返回一个新数组
