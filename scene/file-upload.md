@@ -4,7 +4,7 @@
 
 1. **客户端**通过 `formData`（`multipart/form-data`），或将 `formData` 转化成 `ReadableStream`上传
     - `formData`：使用 `formData` 的话，客户端会将文件先放到 `Buffer`（将文件缓冲到客户端内存），然后放在 HTTP 请求（通常是 POST）的 Body 中一次性上传，如果 Body 太大，就会返回 413（Payload Too Large）。这个限制可以通过修改服务端的 `client_max_body_size`（通常可以设置 10m、20m 左右） 来调整请求体大小.
-    - 如果用 `ReadableStream` 的话，会强制使用 `Stream`，此时就不再受到 HTTP Body 的大小限制。Stream 相当于开启一个客户端和服务器的通道，客户端可以通过这个开启的 HTTP 通道批量持续上传（但会受 timeout 限制），Stream 回自动关闭，但是有些情况下要手动关闭
+    - 如果用 `ReadableStream` 的话，会强制使用 `Stream`，此时就不再受到 HTTP Body 的大小限制。Stream 相当于开启一个客户端和服务器的通道，客户端可以通过这个开启的 HTTP 通道批量持续上传（但会受 timeout 限制），Stream 会自动关闭，但是有些情况下要手动关闭
 2. **服务端接收**：
     - 接收 Buffer：服务端接收到的 Buffer 可以表示为文件的全部或部分内容。对于大型文件，可能需要使用 Stream 来处理数据。
     - 接收 Stream：服务端可以逐步接收 Stream 中的数据，这通常涉及到监听 Stream 的事件，如 data、end 和 error。
@@ -13,6 +13,11 @@
     - 写入 Stream：对于 Stream，服务端可以使用 pipe 方法将数据流传输到 fs.createWriteStream，这允许服务端以流式方式写入文件，适合大文件上传。
 4. **确认上传**：服务器完成写入后，应向客户端发送相应的 HTTP 响应状态码和消息，例如 200 OK 或 201 Created 表示上传成功，400 Bad Request 或 500 Internal Server Error 等表示上传失败或出现错误。
 5. **Stream 关闭**：在使用 Stream 时，通常需要在数据传输完成后或出现错误时关闭 Stream。对于 ReadableStream，可以通过 stream.destroy() 方法来关闭 Stream，并释放相关资源。
+
+> formData 是整个文件上传，stream 是打开通道，分批按顺序上传，传输的数据都是一块一块的 buffer
+
+> 当你使用 ReadStream 来读取文件并通过 HTTP 上传到服务器时，数据确实是以缓冲区（buffer）的形式一块一块地上传的。这种方式允许你以流式传输数据，而不是一次性将整个文件加载到内存中，这对于大文件尤其有用。
+> 在 HTTP 协议中，流式传输可以利用 `Transfer-Encoding: chunked` 头部来实现。这种方式允许服务器接收到数据的一部分后就开始处理，而不必等待所有数据都上传完毕。这在处理大文件或实时数据传输时非常有用，因为它可以减少等待时间和内存使用
 
 ## 前端上传
 
