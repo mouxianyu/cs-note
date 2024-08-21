@@ -38,6 +38,7 @@ ESModule  是现代 JavaScript 的标准，用于现代框架 Vue、React 等�
     -   `import {xxx,xxx}` 导入多个
     -   `import * as xxx` 全部导入，`export default` 为 `xxx.default`
     -   `import {default as xxx,xxx}` 导入 default 和其他
+    -   `import` 是单例机制的，即时重复加载也只会加载一次，动态导入也是一样
 -   导出：下面几个可以混合使用，且没有先后顺序问题
     -   `export` 导出单个
     -   `export {xxx,xxx}` 导出多个
