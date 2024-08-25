@@ -20,7 +20,7 @@ JS 中浅拷贝有
 -   `lodash` 的 `cloneDeep`
 -   `jquery.extend(deepCopy,...)` 需要将第一个参数设置为 `true`
 -   `JSON.parse(JSON.stringfy(obj))` （缺陷：不会拷贝对象上 `value` 为 `undefined` 的值，对应的 `key` 会被去除; `NaN` 会
-    被转化为 `null` ；`Date` 对象变为 `Date` 字符串等等问题）
+    被转化为 `null` ；`Date` 对象变为 `Date` 字符串；函数会不见等等问题）
 -   自定义函数递归循环拷贝
 
 ## 自定义实现循环递归深拷贝

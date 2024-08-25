@@ -2,7 +2,8 @@
 
 ## 并行处理
 
-使用 `gulp.parallel()`
+-   `gulp.parallel()`
+-   `gulp-multiple-process`
 
 ## 重名包处理
 

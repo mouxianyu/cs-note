@@ -1,145 +1,76 @@
 # this 作用域
 
--   在 JavaScript 中，this 是一个特殊的关键字，它在函数执行时指向一个对象。
--   this 的值取决于函数的调用方式，而不是函数定义时的位置
--   箭头函数不绑定自己的 this，它会捕获其所在上下文的 this 值。这意味着箭头函数中的 this 值在定义时就已经确定，并且在整个函数中保持不变
+-   `this` 的值取决于它出现的上下文：函数、类或全局
 
-## 执行上下文（Execution Context）
+## 严格模式和非严格模式
 
-在 JavaScript 中，执行上下文（Execution Context）是一个环境，在这个环境中代码被执行。它包含了变量、函数、作用域链等信息。执行上下文的创建和执行是 JavaScript 引擎运行代码的基础过程。
+-   在非严格模式下， `this` 总是指向一个对象，在严格模式下可以是任意值
+-   在非严格模式下，如果 `this` 不是一个对象的话，会被替换成对象
+    -   如果一个函数被调用时 `this` 被设置为 `undefined` 或 `null`， `this` 会被替换为 `globalThis`
+    -   如果函数被调用时 `this` 被设置为一个原始值，`this` 会被替换为原始值的包装对象
 
-**执行上下文是由函数调用或全局代码的执行创建的**
+> ES Module 转化成 ES5 使用了严格模式， 因此在 ES Module 中 this 指向 undefined
 
--   **全局执行上下文**：这是默认的执行上下文，当 JavaScript 代码开始执行时首先进入这个上下文。在这个上下文中，this 指向全局对象（在浏览器中是 window，在 Node.js 中是 global）。
--   **函数执行上下文**：当函数被调用时，一个新的执行上下文被创建。这个上下文包含了函数的参数、局部变量、函数本身的 this 绑定等。每个函数调用都会创建一个新的执行上下文，并且将其推入执行栈（Execution Stack）。
--   **Eval 执行上下文**：eval 函数可以创建一个新的执行上下文，但出于安全和性能的考虑，它的使用通常不推荐。
--   **模块执行上下文**：在 ES6 模块中，每个模块都有自己的执行上下文，类似于函数执行上下文，但它们是封闭的，不会影响到全局上下文。
--   **箭头函数的执行上下文**：箭头函数没有自己的 this 上下文，它们捕获其所在上下文的 this 值。这意味着箭头函数内的 this 值在定义时就已经确定，而不是在调用时确定。
+## 全局上下文
 
-> 因为对象字面量（即对象）本身并不构成一个执行上下文，所以如果对象方法是箭头函数的话，它的执行上下文不是对象，this 也不指向对象
-
-## this 绑定
-
--   **上下文绑定**：this 的值与函数的调用上下文有关。在不同的调用上下文中，this 可能指向不同的对象。
--   **默认值**：如果函数不是作为对象的方法调用，那么在非严格模式下，this 默认绑定到全局对象（浏览器中的 window 或 Node.js 中的 global）。在严格模式下，this 的值是 undefined。
--   **隐式绑定**：当函数作为对象的方法被调用时，this 隐式地绑定到该对象。例如，obj.method()中的 this 将指向 obj。
--   **显式绑定**：可以通过 call、apply 或 bind 方法显式地设置 this 的值。这些方法允许你在调用函数时指定 this 应该指向哪个对象。
--   **new 绑定**：当使用 new 关键字创建一个对象时，构造函数内的 this 绑定到新创建的对象上。
--   **箭头函数**：箭头函数不绑定自己的 this，它会捕获其所在上下文的 this 值。这意味着箭头函数中的 this 值在定义时就已经确定，并且在整个函数中保持不变。
--   **事件处理**：在事件处理函数中，this 通常指向触发事件的元素。
--   **回调函数**：在某些情况下，如 setTimeout 或 setInterval 的回调函数中，this 可能不会按照预期工作，因为它们通常不会隐式绑定到调用它们的上下文中。
--   **静态方法**：静态方法的 this 绑定类
--   **ES6 类**：在 ES6 类中，方法默认不会绑定 this 到类的实例，除非你在构造函数中显式调用它们。
--   **函数作为对象属性调用**：即使函数是作为对象的属性调用的，this 也可能不会指向该对象，除非函数是通过对象调用的。
-    -   指的 `const fun = obj.fun` ,然后直接调用 `fun`，此时的 `fun` 的 `this` 是根据执行上下文确定的，而不是对象
-
-## this 指向
-
-### 1. 全局上下文
-
-在全局函数中，`this` 指向全局对象（在浏览器中是 `window`，在 Node.js 中是 `global`）
+全局直接打印，严格模式下 this 是 undefined，非严格模式下 this 会被替换成 globalThis（浏览器是 window，Node.js 是 global）
 
 ```js
-console.log(this) // 在浏览器中输出 window 对象
+// window
+console.log(this)
 ```
 
-### 2. 对象方法中
+```js
+// 严格模式
+// undefined
+console.log(this)
+```
 
-当一个函数作为对象的方法被调用时，`this` 指向该对象。
+## 类上下文
+
+类上下文中 this 指向类本身
 
 ```js
-const person = {
-    name: 'Alice',
-    sayName: function () {
-        console.log(this.name)
-    }
+class Dog {
+    static SELF = this
 }
-person.sayName() // 输出 "Alice"，this 指向 person 对象
+console.log(Dog.SELF === Dog)
 ```
 
-### 3. 构造函数中
+## 函数上下文
 
-在构造函数中，`this` 指向新创建的对象实例。
+**普通函数**： 函数内部 this 的值取决于函数如何被调用。
+**箭头函数**： 箭头函数不提供自身的 this 绑定（this 的值将保持为**闭合词法上下文**的值，即箭头函数能够记住其创建时**词法作用**域中的 this 值）。
 
-```js
-function Person(name) {
-    this.name = name
-}
-const person = new Person('Alice')
-console.log(person.name) // 输出 "Alice"，构造函数中的 this 指向 person 实例
-```
+-   直接调用函数：指向 undefined/全局上下文
+-   构造函数：指向新创建的实例
+-   对象调用函数：指向对象
+-   回调函数：取决于调用方式
+    -   事件处理函数：在 DOM 事件处理中，事件处理函数的 this 通常指向触发事件的 DOM 元素。
+    -   定时器回调函数：如 setTimeout、setInterval 的回调函数，this 可能指向全局对象(直接调用严格模式下也是全局对象)或特定的上下文（具体取决于调用方式）
+    -   promise 的 then、catch、finally：指向 undefined
 
-### 4. 事件处理中
+## 词法作用域
 
-在事件处理函数中，`this` 通常指向触发事件的元素。
+词法作用域是指变量的作用范围由其在代码中的位置（即词法结构）所决定。
 
-```js
-const button = document.getElementById('myButton')
-button.addEventListener('click', function () {
-    console.log(this) // 在点击时输出 button 元素
-})
-```
+要点：
 
-### 5. 使用 `call`、`apply` 或 `bind`
+-   **在定义时确定**：变量的作用域在其定义的位置就已经确定，而不是在运行时动态改变。
+-   **嵌套结构**：内层作用域可以访问外层作用域的变量，但外层作用域不能访问内层作用域的变量。
+-   **与函数调用无关**：作用域的划分与函数如何被调用无关，只与函数定义的位置有关
 
-使用 `call`、`apply` 或 `bind` 方法调用函数时，可以显式地设置 `this` 的值。
+### 常见词法作用域
 
-```js
-const person = {name: 'Alice'}
-function sayName() {
-    console.log(this.name)
-}
-sayName.call(person) // 使用 call 设置 this 指向 person 对象
-```
+JavaScript 中的词法作用域主要包括以下几种：
 
-### 6. 箭头函数中
+1. **全局作用域**：在任何函数外部声明的变量，它们在整个脚本范围内都可访问。
+2. **函数作用域**：在函数内部声明的变量，它们只能在该函数及其嵌套函数内部访问。
+3. **块级作用域**：使用 `let` 和 `const` 在代码块（如 `{}` 内）声明的变量，它们只在该代码块及其嵌套的子块内部可访问。
+4. **类作用域**：在类内部声明的静态变量和方法，它们属于类的静态作用域。
+5. **模块作用域**：在 ES6 模块中，每个模块都有自己的作用域，模块内部的变量和函数默认是私有的。
+6. **词法环境作用域**：JavaScript 引擎内部使用词法环境来实现作用域链，每个词法环境可以访问其外部词法环境。
 
-箭头函数没有自己的 `this` 上下文，它会捕获其所在上下文的 `this` 值，作为自己的 `this`
-
-> 箭头函数的 this 在函数定义的时候确定，不会根据执行上下文的变化而变化
-
-```js
-const person = {
-    name: 'Alice',
-    sayName: () => {
-        console.log(this.name) // 这里的 this 指向外围作用域（可能是 window 或 undefined）
-    }
-}
-person.sayName() // 输出全局对象的 name 属性，或在严格模式下是 undefined
-```
-
-### 7. 严格模式下
-
-在严格模式（`'use strict'`）下，如果函数没有被调用在对象上下文中，`this` 的值将为 `undefined`。
-
-```js
-'use strict'
-function sayName() {
-    console.log(this) // 输出 undefined
-}
-sayName()
-```
-
-### 8. 独立函数调用
-
-如果一个函数被独立调用，而不是作为对象的方法，一般来说，在非严格模式下 `this` 指向全局对象，在严格模式下 `this` 为 `undefined`。
-
-```js
-function sayName() {
-    console.log(this)
-}
-sayName() // 在非严格模式下输出全局对象，在严格模式下输出 undefined
-```
-
-## this 指向什么时候发生改变
-
-### 不会改变的情况
-
-1. 箭头函数在函数定义的时候 this 就确定了，不会根据函数执行的位置改变
-
-### 会改变的情况
-
-1. 具名和匿名的普通函数的 this 都会根据执行上下文发生改变
-2. 函数通过 call、apply、bind 方法被调用，可以显式改变 this 的指向（箭头函数不行）
-
-[示例](/code/js/this-scope/index.js)
+> **对象**的花括号不算词法作用域，**类**的花括号是词法作用域，因为类在 **ES5** 中也算是一种特殊的函数
+>
+> 因此如果类的函数属性是箭头函数的话，箭头函数的 this 指的是 class 本身，而对象方法如果是箭头函数的话，指的是对象外层作用域的 this
