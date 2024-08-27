@@ -6,7 +6,7 @@ ref 可以当成 `reactive({value:xxx})`，比较好理解。好像除了模版�
 
 1. ref 可以接受任何类型的值，包括原始类型（number、string、boolean 等）、深层嵌套的对象、数组、JS 内置数据结构（Map、Set 等）；reactive 只接受对象类型（对象、数组、Map、Set 等）
 2. ref 的.value 可以替换整个对象，而不失去响应式，reactive 不行。如果 ref 不加.value 直接替换整个对象也是会失去响应式
-3. ref 解构会失去响应（可以使用 toRef、toRefs）；ref 没法直接解构
+3. reactive 解构会失去响应（可以使用 toRef、toRefs）；ref 没法直接解构
 4. ref 必须通过.value 访问，reactive 可以直接获取
 
 ## 为什么 Reactive 不能使用原始类型，Ref 可以

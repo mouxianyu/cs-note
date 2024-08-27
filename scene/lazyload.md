@@ -98,3 +98,7 @@ window.addEventListener('scroll', () => {
 默认情况下，字体请求会延迟到构造渲染树之前，这可能会导致文本渲染延迟。
 
 可以使用 `<link rel="preload">`、CSS `font-display` 属性和字体加载 API 来覆盖默认行为并预加载网络字体资源。
+
+## prefetch
+
+可以对一些不是立即需要使用的资源如 image、js、css、字体等链接进行 prefetch，prefetch 会在空闲时加载，不会影响主线程

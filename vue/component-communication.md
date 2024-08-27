@@ -5,8 +5,9 @@
 3.  provide/inject： 祖先向后代传递
 4.  透传 attribute：父传子
 5.  ref/expose：父组件获取子组件的实例
-6.  全局状态管理：vuex/pinia
-7.  Event Bus（Vue3 被移除，Vue3 官方推荐使用 mitt.js）
+6.  作用域 slot：子传父
+7.  全局状态管理：vuex/pinia
+8.  Event Bus（Vue3 被移除，Vue3 官方推荐使用 mitt.js）
 
 ## 双向绑定
 
